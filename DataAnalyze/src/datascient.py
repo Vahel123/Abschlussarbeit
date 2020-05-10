@@ -32,10 +32,8 @@ laenge = [zeile[1] for zeile in tabelle]
 hoehe = [zeile[3] for zeile in tabelle]
 
 
-
 # Fixing random state for reproducibility
 np.random.seed(19680801)
-
 
 laenge, hoehe = np.random.randn(2, 100)
 fig, [ax1, ax2] = plt.subplots(2, 1, sharex=True)
