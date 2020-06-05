@@ -23,8 +23,8 @@ curl --unix-socket /tmp/firecracker.socket -i \
 -H 'Accept: application/json' \
 -H 'Content-Type: application/json' \
 -d '{
-"vcpu_count": 1,
-"mem_size_mib": 100000
+"vcpu_count": 2,
+"mem_size_mib": 1000
 }'
 
 curl --unix-socket /tmp/firecracker.socket -i \
@@ -33,7 +33,7 @@ curl --unix-socket /tmp/firecracker.socket -i \
   -H 'Content-Type: application/json' \
   -d '{
       "iface_id": "eth0",
-      "guest_mac": "be:82:d3:28:dc:2b",
+      "guest_mac": "a2:96:04:dc:75:a1",
       "host_dev_name": "tap0"
     }'
 
