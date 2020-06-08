@@ -173,7 +173,7 @@ Nachdem wir unsere Image Datei erstellt und installiert haben benötigen wir ein
 
 Diese können wir mit den entsprechenden Befehle installieren:  <br>
 ```bash
-go get -d -u github.com/kata-containers/packaging <br>
+go get -d -u github.com/kata-containers/packaging 
 
 cd $GOPATH/src/github.com/kata-containers/packaging/kernel
 
@@ -207,14 +207,14 @@ mv ${GOPATH}/root/go/src/github.com kata-containers
 
 cd ${GOPATH}/src/github.com/kata-containers/qemu/qemu
 
-mkdir build  <br>
+mkdir build 
 
-cd build  <br>
+cd build  
 
-../configure  <br>
+../configure 
 
-make -j $(nproc)  <br>
-sudo -E make install  <br>
+make -j $(nproc) 
+sudo -E make install  
 ```
 Achtung! Dieser Vorgang kann mehr als 60Minuten benötigen. Ihr benötigt sehr viel Rechenpower!  <br>
 
