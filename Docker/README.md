@@ -2,7 +2,7 @@
 
 Zunächst installieren wir Docker. <br>
 
-Je nachdem was für ein System ihr benutzt müsst ihr ein andere Installationsnaleitung benutzen. Weitere Informationen findet ihr auf der Docker Seite https://docs.docker.com/get-docker/. <br> 
+Je nachdem was für ein System ihr benutzt müsst ihr ein andere Installationsnaleitung benutzen. Weitere Informationen findet ihr auf der  <a href="https://docs.docker.com/get-docker/">Docker </a> Seite. <br> 
 Wir installieren Docker auf ein Ubuntu 18.04 LTS. <br>
 
 # Ältere Docker Versionen löschen <br>
