@@ -75,7 +75,7 @@ go get -d -u github.com/kata-containers/runtime
 cd $GOPATH/src/github.com/kata-containers/runtime
 make && sudo -E PATH=$PATH make install 
 ```
-# Hardware Überprüfen  <br>
+# Hardware überprüfen  <br>
 
 Jetzt können wir auch direkt mal ausprobieren ob kata-runtime installiert wurde und ob unser Rechner überhaupt die Vorausetzungen erfüllt um ein Kata-Container zu erstellen.   <br>
 
@@ -92,7 +92,7 @@ Als Ergebnis sollte folgendes Rauskommen (Bei Ubuntu 18.04 LTS):  <br>
 System is capable of running Kata Containers 
 System can currently create Kata Containers  
 ```
-# Image oder Initrd ausklammern <br>
+# Image oder initrd ausklammern <br>
 
 Jetzt haben wir unser erste Kata-Container erstellt aber ohne irgendein Betriebssystem oder Kernel. Um ein Kernel und Root File System (Rootfs) zu erstellen wird sehr viel Rechenpower und Speicher benötigt. Deswegen solltet ihr  ein stabile Rechner dafür benutzen. Sonst könnte es zu abstürzen führen oder das euer Rechner den Geist vollkommen aufgibt (ist mir 2 mal passiert). Am besten ein Rechner mit mindestens 50GB und 4 CPU verwenden!.   <br>
 
