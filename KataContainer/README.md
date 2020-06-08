@@ -7,17 +7,20 @@ Was wird benötigt um Kata-Container zu installieren?  <br>
 Docker: Siehe offizielle Seite.  <br>
 
 # Golang:
+```bash
+sudo apt-get update  
+sudo apt-get -y upgrade  
+cd /tmp  
+wget https://dl.google.com/go/go1.11.linux-amd64.tar.gz
+sudo tar -xvf go1.11.linux-amd64.tar.gz  
+sudo mv go /usr/local 
 
-sudo apt-get update  <br>
-sudo apt-get -y upgrade  <br>
-cd /tmp  <br>
-wget (https://dl.google.com/go/go1.11.linux-amd64.tar.gz)  <br>
-sudo tar -xvf go1.11.linux-amd64.tar.gz  <br>
-sudo mv go /usr/local  <br>
-export GOROOT=/usr/local/go  <br>
-export GOPATH=~/go  <br>
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH  <br>
-go env // Pfade überprüfen  <br>
+export GOROOT=/usr/local/go 
+export GOPATH=~/go  
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH 
+
+go env // Pfade überprüfen  
+```
 
 # Make:  <br>
 sudo apt-get update  <br>
