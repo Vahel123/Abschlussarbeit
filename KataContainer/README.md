@@ -40,7 +40,7 @@ sudo apt install curl
 ```bash
 sudo apt-get update  
 sudo apt-get install flex 
-BISON:  <br>
+BISON: 
 sudo apt-get update -y 
 sudo apt-get install -y bison 
 ```
