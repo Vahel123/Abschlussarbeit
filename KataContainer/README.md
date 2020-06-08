@@ -50,14 +50,17 @@ sudo apt-get install -y pkg-config  <br>
 sudo apt-get install libglib2.0-dev  <br>
 sudo apt-get install libpixman-1-dev  <br>
 
+# Grundlegende Architektur installieren <br>
+
 Nachdem man die Tools installiert hat beginnen wir dann mit der eigentlichen Installation.   <br>
 Zunächst benötigen wir den Kata-Container und den runtime  , damit wir die Grundlegende Architektur haben, um damit dann weiter zu arbeiten. Dafür müssen wir die folgenden Befehle ausführen:  <br>
-
-# Grundlegende Architektur installieren <br>
 
 go get -d -u (github.com/kata-containers/runtime)  <br>
 cd $GOPATH/src/(github.com/kata-containers/runtime)  <br>
 make && sudo -E PATH=$PATH make install   <br>
+
+# Hardware Überprüfen  <br>
+
 Jetzt können wir auch direkt mal ausprobieren ob kata-runtime installiert wurde und ob unser Rechner überhaupt die Vorausetzungen erfüllt um ein Kata-Container zu erstellen.   <br>
 
 Zunächst müssen wir ein Kata-Container erstellen (Ohne ein Betriebssystem).   <br>
@@ -66,8 +69,6 @@ Dafür einfach die Anleitung folgen und installieren:  <br>
 (https://github.com/kata-containers/documentation/blob/master/install/ubuntu-installation-guide.md) (Aufpassen, den daemon.json nicht verwenden, ansonsten gibt euer Docker eine Fehlermeldung raus.)  <br>
 Jetzt die Hardware überprüfen:  <br>
 
-# Hardware Überprüfen  <br>
-
 sudo kata-runtime kata-check  <br>
 
 Als Ergebnis sollte folgendes Rauskommen (Bei Ubuntu 18.04 LTS):  <br>
@@ -75,16 +76,15 @@ Als Ergebnis sollte folgendes Rauskommen (Bei Ubuntu 18.04 LTS):  <br>
 System is capable of running Kata Containers  <br>
 System can currently create Kata Containers  <br>
 
+# Image oder Initrd ausklammern <br>
+
 Jetzt haben wir unser erste Kata-Container erstellt aber ohne irgendein Betriebssystem oder Kernel. Um ein Kernel und Root File System (Rootfs) zu erstellen wird sehr viel Rechenpower und Speicher benötigt. Deswegen solltet ihr  ein stabile Rechner dafür benutzen. Sonst könnte es zu abstürzen führen oder das euer Rechner den Geist vollkommen aufgibt (ist mir 2 mal passiert). Am besten ein Rechner mit mindestens 50GB und 4 CPU verwenden!.   <br>
 
-Kommen wir zur Installation.   <br>
 Zunächst werden wir ein Rootfs Datei erstellen. Ihr könnt auch eine Intird verwenden. Bei mir hat es aber ganz gut mit dem Rootfs image funktioniert.   <br>
 
 Bevor wir beginnen müssen wir ein paar Vorkehrungen treffen. Unter dem Pfad /usr/share/defaults/kata-containers/configuration.toml müsst ihr ab der Zeile [hypervisor.qemu] initrd = ausklammern, weil wir eine Rootfs image erstellen möchten und kein initrd.   <br>
 
 Das sieht folgendermaßen aus:  <br>
-
-# Image oder Initrd ausklammern <br>
 
 [hypervisor.qemu]  <br>
 path = "/usr/bin/qemu-system-x86_64"  <br>
@@ -150,9 +150,9 @@ sudo install -o root -g root -m 0640 -D kata-containers.img "/usr/share/kata-con
 
 (cd /usr/share/kata-containers && sudo ln -sf "$image" kata-containers.img)  <br>
 
-Nachdem wir unsere Image Datei erstellt und installiert haben benötigen wir ein Kernel.   <br>
-
 # Kernel erstellen <br>
+
+Nachdem wir unsere Image Datei erstellt und installiert haben benötigen wir ein Kernel.   <br>
 
 Diese können wir mit den entsprechenden Befehle installieren:  <br>
 
