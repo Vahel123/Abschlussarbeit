@@ -1,3 +1,5 @@
+#!/bin/bash
+
 sudo ip tuntap add tap0 mode tap
 sudo ip addr add 172.20.0.1/24 dev tap0
 sudo ip link set tap0 up

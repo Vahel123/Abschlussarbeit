@@ -1,0 +1,406 @@
+Kata-Container install Protokoll
+Es Dient nicht zur installation von Kata-Container!!!
+
+Golang install:
+
+sudo apt-get update
+sudo apt-get -y upgrade
+cd /tmp
+wget https://dl.google.com/go/go1.11.linux-amd64.tar.gz
+sudo tar -xvf go1.11.linux-amd64.tar.gz
+sudo mv go /usr/local
+export GOROOT=/usr/local/go
+export GOPATH=~/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+go env // überprüfen
+
+Make install:
+
+sudo apt-get install make
+
+GCC install:
+
+sudo apt-get install gcc
+
+curl install: 
+sudo apt install curl
+
+
+Build and install Kata-Container runtime
+
+go get -d -u github.com/kata-containers/runtime
+cd $GOPATH/src/github.com/kata-containers/runtime
+make && sudo -E PATH=$PATH make install
+
+Ergebnis:
+     BUILD    /root/go/src/github.com/kata-containers/runtime/kata-runtime
+     GENERATE cli/config/configuration-qemu.toml
+     GENERATE cli/config/configuration-qemu-virtiofs.toml
+     GENERATE cli/config/configuration-clh.toml
+     GENERATE cli/config/configuration-fc.toml
+     GENERATE cli/config/configuration-acrn.toml
+     BUILD    /root/go/src/github.com/kata-containers/runtime/containerd-shim-kata-v2
+     BUILD    /root/go/src/github.com/kata-containers/runtime/kata-netmon
+kata-runtime - version 1.11.0-rc0 (commit 82ee8344d1d12025ceba37a6cbdcf475fbf6390d)
+
+     INSTALL  install-scripts
+     INSTALL  install-completions
+     INSTALL  install-configs
+     INSTALL  install-configs
+     INSTALL  install-bin
+     INSTALL  install-containerd-shim-v2
+     INSTALL  install-bin-libexec
+
+
+Check hardware requierment:
+Install this: 
+https://github.com/kata-containers/documentation/blob/master/install/ubuntu-installation-guide.md
+
+sudo kata-runtime kata-check
+
+Ergebnis:
+
+System is capable of running Kata Containers
+System can currently create Kata Containers
+
+
+
+
+
+
+Configure to use initrd or rootfs image
+
+Jenachdem ob man eine initrd
+ oder image datei erstellen möchte muss man diese in dem verzeichnis: /usr/share/defaults/kata-containers/configuration.toml asklammern wir wollen eine Image datei erstellen, deswegen klamern wir initrd
+ aus: 
+
+# Copyright (c) 2017-2019 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+# XXX: WARNING: this file is auto-generated.
+# XXX:
+# XXX: Source file: "cli/config/configuration-qemu.toml.in"
+# XXX: Project:
+# XXX:   Name: Kata Containers
+# XXX:   Type: kata
+
+[hypervisor.qemu]
+path = "/usr/bin/qemu-system-x86_64"
+kernel = "/usr/share/kata-containers/vmlinuz.container"
+# initrd = "/usr/share/kata-containers/kata-containers-initrd.img"
+image = "/usr/share/kata-containers/kata-containers.img"
+machine_type = "pc"
+
+
+Disabling systemd-journald rate limiting
+sudo nano /etc/systemd/journald.conf
+
+hinzufügen von:
+RateLimitInterval=0s
+RateLimitBurst=0
+sudo systemctl restart systemd-journald
+
+
+Build and install Kata proxy
+
+go get -d -u github.com/kata-containers/proxy
+
+cd $GOPATH/src/github.com/kata-containers/proxy
+
+make && sudo make install
+
+
+
+
+
+Build and install Kata shim
+go get -d -u github.com/kata-containers/shim
+
+cd $GOPATH/src/github.com/kata-containers/shim
+
+make && sudo make install
+
+
+
+Build a custom Kata agent - OPTIONAL
+
+go get -d -u github.com/kata-containers/agent
+
+cd $GOPATH/src/github.com/kata-containers/agent
+
+make
+
+Get the osbuilder 
+
+Wird benötigt um die rootfs datei zu installieren-
+
+go get -d -u github.com/kata-containers/osbuilder
+
+Create a rootfs image
+
+export ROOTFS_DIR=${GOPATH}/src/github.com/kata-containers/osbuilder/rootfs-builder/rootfs
+
+sudo rm -rf ${ROOTFS_DIR}
+cd $GOPATH/src/github.com/kata-containers/osbuilder/rootfs-builder
+
+export distro=alpine
+
+script -fec 'sudo -E GOPATH=$GOPATH USE_DOCKER=true SECCOMP=no ./rootfs.sh ${distro}'
+
+
+Build a rootfs image
+
+cd $GOPATH/src/github.com/kata-containers/osbuilder/image-builder
+
+script -fec 'sudo -E USE_DOCKER=true ./image_builder.sh ${ROOTFS_DIR}'
+
+
+
+
+
+Hinweis: mit kata-runtime können verschiedene informationen aufgerufen werden. Zum Beispiel kann man dadurch Kata-Container erstellen, pausieren, starten, löschen oder status aufrufen. 
+
+Install the rootfs image
+
+commit=$(git log --format=%h -1 HEAD)
+
+
+date=$(date +%Y-%m-%d-%T.%N%z)
+
+image="kata-containers-${date}-${commit}"
+
+cd /usr/share/kata-containers
+
+sudo install -o root -g root -m 0640 -D kata-containers.img "/usr/share/kata-containers/${image}"
+
+(cd /usr/share/kata-containers && sudo ln -sf "$image" kata-containers.img)
+
+
+Install guest kernel images
+
+go get -d -u github.com/kata-containers/packaging
+
+cd $GOPATH/src/github.com/kata-containers/packaging/kernel
+
+./build-kernel.sh setup
+
+fail: /bin/sh: 1: flex: not found
+
+install flex:
+
+sudo apt-get update
+sudo apt-get install flex
+./build-kernel.sh setup
+fail: /bin/sh: 1: bison: not found
+
+install bison:
+
+sudo apt-get update -y
+
+sudo apt-get install -y bison
+
+./build-kernel.sh setup
+
+./build-kernel.sh install
+
+
+
+
+fail: error: Cannot generate ORC metadata for CONFIG_UNWINDER_ORC=y, please install libelf-dev, libelf-devel or elfutils-libelf-devel
+
+install  install libelf-dev:
+
+sudo apt-get update
+sudo apt-get install libelf-dev
+
+./build-kernel.sh install
+
+Ergebnis:
+
+Setup is 16060 bytes (padded to 16384 bytes).
+System is 5093 kB
+CRC e49589f4
+Kernel: arch/x86/boot/bzImage is ready  (#1)
+lrwxrwxrwx 1 root root 17 Jun  5 12:06 /usr/share/kata-containers/vmlinux.container -> vmlinux-5.4.32-79
+lrwxrwxrwx 1 root root 17 Jun  5 12:06 /usr/share/kata-containers/vmlinuz.container -> vmlinuz-5.4.32-79
+
+Install a hypervisor
+
+
+go get -d github.com/kata-containers/qemu
+
+qemu_branch=$(grep qemu-lite- /root/go/src/github.com/kata-containers/runtime/versions.yaml | cut -d '"' -f2)
+
+cd ${GOPATH}/src/github.com/kata-containers/qemu
+
+git checkout -b $qemu_branch remotes/origin/qemu_branch
+
+your_qemu_directory=/root/go/src/github.com/kata-containers/qemu
+
+cd $your_qemu_directory
+
+/root/go/src/github.com/kata-containers/packaging/scripts/configure-hypervisor.sh qemu > kata.cfg
+
+install: 
+sudo apt-get install python
+sudo apt-get install python3
+sudo apt-get install -y python3-simpleeval
+
+eval ./configure "$(cat kata.cfg)"
+
+Error: ERROR: glib-2.22 gthread-2.0 is required to compile QEMU 
+
+Install: 
+
+apt-get install build-essential zlib1g-dev pkg-config libglib2.0-dev binutils-dev libboost-all-dev autoconf libtool libssl-dev libpixman-1-dev libpython-dev python-pip python-capstone virtualenv
+
+ 
+make -j $(nproc)
+
+fail: 
+
+util/memfd.c:40:12: error: static declaration of ‘memfd_create’ follows non-static declaration
+ static int memfd_create(const char *name, unsigned int flags)
+            ^~~~~~~~~~~~
+In file included from /usr/include/x86_64-linux-gnu/bits/mman-linux.h:115:0,
+                 from /usr/include/x86_64-linux-gnu/bits/mman.h:45,
+                 from /usr/include/x86_64-linux-gnu/sys/mman.h:41,
+                 from /root/go/src/github.com/kata-containers/qemu/include/sysemu/os-posix.h:29,
+                 from /root/go/src/github.com/kata-containers/qemu/include/qemu/osdep.h:104,
+                 from util/memfd.c:28:
+/usr/include/x86_64-linux-gnu/bits/mman-shared.h:46:5: note: previous declaration of ‘memfd_create’ was here
+ int memfd_create (const char *__name, unsigned int __flags) __THROW;
+     ^~~~~~~~~~~~
+/root/go/src/github.com/kata-containers/qemu/rules.mak:69: recipe for target 'util/memfd.o' failed
+make: *** [util/memfd.o] Error 1
+make: *** Auf noch nicht beendete Prozesse wird gewartet …
+
+Lösung:
+sudo nano util/memfd.c
+
+Zeile:
+
+-#ifdef CONFIG_MEMFD
+-#include <sys/memfd.h>
+-#elif defined CONFIG_LINUX
++#if defined CONFIG_LINUX && !defined CONFIG_MEMFD
+
+- static int memfd_create(const char *name, unsigned int flags)
+ +static int tmp_memfd_create(const char *name, unsigned int flags)
+
+sudo nano configure:
+
+-#include <sys/memfd.h>
++#include <sys/mman.h>
+
+Fail:
+
+util/memfd.c:45:2: error: #endif without #if
+ #endif
+
+Lösung: 
+
+sudo nano util/memfd.c
+
+#endif
+-#endif
+
+
+
+
+
+
+fail:
+
+block/blkverify.c:309:29: error: ‘%s’ directive output may be truncated writing up to 4095 bytes into a region of size 4086 [-Werror=format-truncation=]
+                  "blkverify:%s:%s",
+                             ^~
+In file included from /usr/include/stdio.h:862:0,
+                 from /root/go/src/github.com/kata-containers/qemu/include/qemu/osdep.h:68,
+                 from block/blkverify.c:10:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:64:10: note: ‘__builtin___snprintf_chk’ output between 12 and 8202 bytes into a destination of size 4096
+   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        __bos (__s), __fmt, __va_arg_pack ());
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
+block/blkdebug.c: In function ‘blkdebug_refresh_filename’:
+block/blkdebug.c:693:31: error: ‘%s’ directive output may be truncated writing up to 4095 bytes into a region of size 4086 [-Werror=format-truncation=]
+                  "blkdebug:%s:%s", s->config_file ?: "",
+                               ^~
+In file included from /usr/include/stdio.h:862:0,
+                 from /root/go/src/github.com/kata-containers/qemu/include/qemu/osdep.h:68,
+                 from block/blkdebug.c:25:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:64:10: note: ‘__builtin___snprintf_chk’ output 11 or more bytes (assuming 4106) into a destination of size 4096
+   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        __bos (__s), __fmt, __va_arg_pack ());
+
+
+
+
+
+
+
+
+
+
+
+
+Neue Versuch: 
+benötigt: 
+sudo apt-get update
+sudo apt-get install -y pkg-config
+sudo apt-get install libglib2.0-dev
+sudo apt-get install libpixman-1-dev
+
+go get -d github.com/qemu/qemu
+
+mv ${GOPATH}/root/go/src/github.com kata-containers
+
+cd ${GOPATH}/src/github.com/kata-containers/qemu/qemu
+
+mkdir build
+
+cd build
+
+../configure
+
+make -j $(nproc)
+sudo -E make install
+Funktioniert!
+
+Was war das Problem?
+Der Repo war drei Jahre veraltet: github.com/kata-containers/qemu und hatte zudem viele ungelöste bugs: https://travis-ci.org/github/kata-containers/qemu/builds/694216004
+
+
+Run Kata Containers with Docker
+dockerUnit=$(systemctl show -p FragmentPath docker.service | cut -d "=" -f 2)
+unitFile=${dockerUnit:-/etc/systemd/system/docker.service.d/kata-containers.conf}
+test -e "$unitFile" || { sudo mkdir -p "$(dirname $unitFile)"; echo -e "[Service]\nType=simple\nExecStart=\nExecStart=/usr/bin/dockerd -D --default-runtime runc" | sudo tee "$unitFile"; }
+
+grep -q "kata-runtime=" $unitFile || sudo sed -i 's!^\(ExecStart=[^$].*$\)!\1 –
+
+add-runtime kata-runtime=/usr/local/bin/kata-runtime!g' "$unitFile"
+
+sudo systemctl daemon-reload
+
+sudo systemctl restart docker
+
+Create a container using Kata
+sudo docker run -ti --runtime kata-runtime busybox sh
+
+Kata-Container mit Rootfs starten.
+bundle="/tmp/bundle"
+rootfs="$bundle/rootfs"
+mkdir -p "$rootfs" && (cd "$bundle" && kata-runtime spec)
+sudo docker export $(sudo docker create busybox) | tar -C "$rootfs" -xvf -
+sudo kata-runtime --log=/dev/stdout run --bundle "$bundle" foo
+
+root@ubuntu-VirtualBox:/usr/share/kata-containers# ls
+
+Ergebnis: kata-containers.img 
+
+Quelle: https://github.com/kata-containers/documentation/blob/master/Developer-Guide.md

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 rm -f /tmp/firecracker.socket
 
 firecracker \

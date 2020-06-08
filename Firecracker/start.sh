@@ -1,3 +1,5 @@
+#!/bin/bash
+
 curl --unix-socket /tmp/firecracker.socket -i \
 -X PUT 'http://localhost/boot-source' \
 -H 'Accept: application/json' \
