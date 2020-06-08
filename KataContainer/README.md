@@ -1,6 +1,7 @@
 # Dokumentation Kata-Container mit Docker <br>
 
-Nachdem man Docker installiert hat werden folgende Befehle verwendet um den Kata-Container zu installieren:  <br>
+Nachdem man Docker installiert hat ist das System bereit Kata-Container zu erstellen  <br>
+Wer Docker noch nicht installiert hat, kann es gerne über die Docker Seite oder dem <a href="https://github.com/Vahel123/Abschlussarbeit/blob/master/Docker/README.md">Link> nachholen. 
 
 Was wird benötigt um Kata-Container zu installieren?  <br>
 ACHTUNG! Diese Installationsanleitung ist nicht 100% gewährleistet, es dient legedglich für meine Abschlusspüfung! Es gibt mehrere Wege um ein Kata-Container zu installieren. <br>
