@@ -1,7 +1,7 @@
 # Dokumentation Kata-Container mit Docker <br>
 
 Nachdem man Docker installiert hat ist das System bereit Kata-Container zu erstellen  <br>
-Wer Docker noch nicht installiert hat, kann es gerne über die Docker Seite oder dem <a href="https://github.com/Vahel123/Abschlussarbeit/blob/master/Docker/README.md">Link </a> nachholen. 
+Wer Docker noch nicht installiert hat, kann es gerne über die <a href="https://docs.docker.com/get-docker/.">Docker </a> Seite oder dem <a href="https://github.com/Vahel123/Abschlussarbeit/blob/master/Docker/README.md">Link </a> nachholen. 
 
 Was wird benötigt um Kata-Container zu installieren?  <br>
 ACHTUNG! Diese Installationsanleitung ist nicht 100% gewährleistet, es dient legedglich für meine Abschlusspüfung! Es gibt mehrere Wege um ein Kata-Container zu installieren. <br>
@@ -82,8 +82,8 @@ Jetzt können wir auch direkt mal ausprobieren ob kata-runtime installiert wurde
 
 Zunächst müssen wir ein Kata-Container erstellen (Ohne ein Betriebssystem).   <br>
 
-Dafür einfach die Anleitung folgen und installieren:  <br>
-(https://github.com/kata-containers/documentation/blob/master/install/ubuntu-installation-guide.md) (Aufpassen, den daemon.json nicht verwenden, ansonsten gibt euer Docker eine Fehlermeldung raus.)  <br>
+Dafür einfach den folgenden Link folgen:  <br>
+ <a href="https://github.com/kata-containers/documentation/blob/master/install/ubuntu-installation-guide.md">Kata-Container installieren </a> (Aufpassen, den daemon.json nicht verwenden, ansonsten gibt euer Docker eine Fehlermeldung raus.)  <br>
 Jetzt die Hardware überprüfen:  <br>
 ``` bash
 sudo kata-runtime kata-check 
