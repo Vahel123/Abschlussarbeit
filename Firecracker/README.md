@@ -429,7 +429,6 @@ localhost:~# cat network.sh
 ifconfig eth0 up && ip addr add dev eth0 172.20.0.2/24
 ip route add default via 172.20.0.1 && echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
-localhost:~# sh network.sh
 localhost:~# sh network.sh 
 localhost:~# [   84.039625] IPv6: eth0: IPv6 duplicate address fe80::644b:8dff:fe3d:7605 detected!
 ```
