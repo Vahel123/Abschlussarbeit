@@ -531,3 +531,28 @@ Danach sollten folgende Daten vorhanden sein: <br>
 ~/go/src/github.com/firecracker-containerd/_submodules/firecracker/build/cargo_target/x86_64-unknown-linux-musl/release/jailer
 ```
 
+# Image aufbauen <br>
+Bevor wir den Image aufbauen müssen wir ```bash Docker API Socket``` anschalten. <br>
+
+```bash
+sudo nano /etc/systemd/system/docker.service.d/startup_options.conf
+```
+folgende Zeilen hinzufügen: <br>
+```bash
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2376
+```
+file units neu laden und docker neu starten. <br>
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart docker.service
+```
+
+Jetzt können wir unser Image aufbauen. <br>
+```bash
+make image
+sudo mkdir -p /var/lib/firecracker-containerd/runtime
+sudo cp tools/image-builder/rootfs.img /var/lib/firecracker-containerd/runtime/default-rootfs.img
+```
+
