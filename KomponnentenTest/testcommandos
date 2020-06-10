@@ -1,0 +1,13 @@
+# In diese Datei befinden sich verschiedene Befehle zum aufzeichenen von verschiedenen Komponnenten.
+# CPU Auslastung in einer Datei hängen:
+
+for ((i=0;i<=300;i++))
+do
+   cat /proc/stat | head -n1 >> cputest
+done
+
+# RAM Auslastung in einer Datei hängen:
+
+# I/O’s Auslastung in einer Datei hängen:
+
+# HDD Auslastung in einer Datei hängen:

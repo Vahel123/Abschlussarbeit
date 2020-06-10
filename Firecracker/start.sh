@@ -35,7 +35,7 @@ curl --unix-socket /tmp/firecracker.socket -i \
   -H 'Content-Type: application/json' \
   -d '{
       "iface_id": "eth0",
-      "guest_mac": "a2:96:04:dc:75:a1",
+      "guest_mac": "66:4b:8d:3d:76:05",
       "host_dev_name": "tap0"
     }'
 
