@@ -555,4 +555,107 @@ make image
 sudo mkdir -p /var/lib/firecracker-containerd/runtime
 sudo cp tools/image-builder/rootfs.img /var/lib/firecracker-containerd/runtime/default-rootfs.img
 ```
+# Konfiguration von Firecracker-Containerd <br>
 
+Wir müssen erstmal die Datei ```bash /etc/containerd/config.toml ``` richtig konfigurieren. Bitte passt die entsprechede Pfade ab. <br> 
+```bash
+#   Copyright 2018-2020 Docker Inc.
+
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+
+#       http://www.apache.org/licenses/LICENSE-2.0
+
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+disabled_plugins = ["cri"]
+root = "/var/lib/containerd/containerd"
+state = "/run/containerd"
+[grpc]
+  address = "/run/containerd/containerd.sock"
+[plugins]
+  [plugins.devmapper]
+    pool_name = "fc-dev-thinpool"
+    base_image_size = "10GB"
+    root_path = "/var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshot$
+
+[debug]
+  level = "debug"
+
+#root = "/var/lib/containerd"
+#state = "/run/containerd"
+#subreaper = true
+#oom_score = 0
+
+#[grpc]
+#  address = "/run/containerd/containerd.sock"
+#  uid = 0
+#  gid = 0
+
+#[debug]
+#  address = "/run/containerd/debug.sock"
+#  uid = 0
+#  gid = 0
+#  level = "info"
+```
+
+Jetzt muss die Datei ```bash devmapper``` unter dem Verzeichnis: ```bash /var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshots``` erstellt werden.  <br>
+
+Mit folgende Inhalt: <br>
+```bash
+#!/bin/bash
+
+# Sets up a devicemapper thin pool with loop devices in
+# /var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshots/devmapper
+
+set -ex
+
+DIR=/var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshots/devmapper
+POOL=fc-dev-thinpool
+
+if [[ ! -f "${DIR}/data" ]]; then
+touch "${DIR}/data"
+truncate -s 100G "${DIR}/data"
+fi
+
+if [[ ! -f "${DIR}/metadata" ]]; then
+touch "${DIR}/metadata"
+truncate -s 2G "${DIR}/metadata"
+fi
+
+DATADEV="$(losetup --output NAME --noheadings --associated ${DIR}/data)"
+if [[ -z "${DATADEV}" ]]; then
+DATADEV="$(losetup --find --show ${DIR}/data)"
+fi
+
+METADEV="$(losetup --output NAME --noheadings --associated ${DIR}/metadata)"
+if [[ -z "${METADEV}" ]]; then
+METADEV="$(losetup --find --show ${DIR}/metadata)"
+fi
+
+SECTORSIZE=512
+DATASIZE="$(blockdev --getsize64 -q ${DATADEV})"
+LENGTH_SECTORS=$(bc <<< "${DATASIZE}/${SECTORSIZE}")
+DATA_BLOCK_SIZE=128 # see https://www.kernel.org/doc/Documentation/device-mapper/thin-provisioning.txt
+LOW_WATER_MARK=32768 # picked arbitrarily
+THINP_TABLE="0 ${LENGTH_SECTORS} thin-pool ${METADEV} ${DATADEV} ${DATA_BLOCK_SIZE} ${LOW_WATER_MARK} 1 skip_block_zeroing"
+echo "${THINP_TABLE}"
+
+if ! $(dmsetup reload "${POOL}" --table "${THINP_TABLE}"); then
+dmsetup create "${POOL}" --table "${THINP_TABLE}"
+fi
+```
+# Firecracker Container starten <br>
+```bash
+mkdir -p /var/lib/firecracker-containerd
+```
+Start container
+```bash
+ sudo PATH=$PATH ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-containerd  \
+  --config /etc/containerd/config.toml
+```
