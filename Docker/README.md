@@ -62,7 +62,7 @@ sudo apt-get install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> c
 sudo docker run hello-world
 ```
 
-Jetzt könnt ihr mit dem Befehl ```bash sudo service Docker start/status/stop``` überprüfen ob alles funktioniert. <br>
+Jetzt könnt ihr mit dem Befehl ```sudo service Docker start/status/stop``` überprüfen ob alles funktioniert. <br>
 
 Jetzt kommen wir zu dem Image Alpine! <br>
 
