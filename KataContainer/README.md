@@ -13,8 +13,8 @@ ACHTUNG! Diese Installationsanleitung ist nicht 100% gewährleistet, es dient le
 sudo apt-get update  
 sudo apt-get -y upgrade  
 cd /tmp  
-wget https://dl.google.com/go/go1.11.linux-amd64.tar.gz
-sudo tar -xvf go1.11.linux-amd64.tar.gz  
+wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz
+sudo tar -xvf go1.13.3.linux-amd64.tar.gz  
 sudo mv go /usr/local 
 
 export GOROOT=/usr/local/go 
