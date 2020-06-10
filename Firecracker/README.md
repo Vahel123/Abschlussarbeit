@@ -574,7 +574,7 @@ Wir müssen erstmal die Datei ```bash /etc/containerd/config.toml ``` richtig ko
 #   limitations under the License.
 
 disabled_plugins = ["cri"]
-root = "/var/lib/containerd/containerd"
+root = "/var/lib/containerd/io.containerd.snapshotter.v1.aufs"
 state = "/run/containerd"
 [grpc]
   address = "/run/containerd/containerd.sock"
@@ -582,8 +582,7 @@ state = "/run/containerd"
   [plugins.devmapper]
     pool_name = "fc-dev-thinpool"
     base_image_size = "10GB"
-    root_path = "/var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshot$
-
+    root_path = "/var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshots/devmapper"
 [debug]
   level = "debug"
 
