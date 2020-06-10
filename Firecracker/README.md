@@ -537,13 +537,13 @@ Bevor wir den Image aufbauen müssen wir ```bash Docker API Socket``` anschalten
 ```bash
 sudo nano /etc/systemd/system/docker.service.d/startup_options.conf
 ```
-folgende Zeilen hinzufügen: <br>
+Folgende Zeilen hinzufügen: <br>
 ```bash
 [Service]
 ExecStart=
 ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2376
 ```
-file units neu laden und docker neu starten. <br>
+Unit files neu laden und docker neu starten. <br>
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl restart docker.service
