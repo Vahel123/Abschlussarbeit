@@ -46,7 +46,7 @@ firecracker \
 	--api-sock /tmp/firecracker.socket \
 ```
 # Firecracker mit mit den enstprechenden Konfigurationen starten (Script 2) <br>
-Bitte beachtet das ihr die entsprechenden Pfade abändern müsst! Bei mir liegen die 2 Datein ```bash hello-vmlinux.bin``` und ```bash hello-rootfs.ext4``` im Pfad ```bash ./```.
+Bitte beachtet das ihr die entsprechenden Pfade abändern müsst! Bei mir liegen die 2 Datein ```hello-vmlinux.bin``` und ```hello-rootfs.ext4``` im Pfad ```./```.
 
 ```bash
 rm -f /tmp/firecracker.socket
@@ -97,9 +97,9 @@ curl --unix-socket /tmp/firecracker.socket -i \
 
 # Firecracker richtig ausführen <br>
 Jetzt haben wir beide Scripte vervollständigt und können diese jetzt starten, dafür benötigt man 2 Terminal Fenster. <br>
-Der erste Script ist bei mir als ```bash starteFirecracker.sh``` abgespeichert und der zweite als ```bash start.sh```. <br>
+Der erste Script ist bei mir als ```starteFirecracker.sh``` abgespeichert und der zweite als ```start.sh```. <br>
 
-Wir werden beide paralls ausführen, zuerst den ersten Script ```bash starteFirecracker.sh``` und danach parallel ```bash start.sh```. <br>
+Wir werden beide paralls ausführen, zuerst den ersten Script ```starteFirecracker.sh``` und danach parallel ```start.sh```. <br>
 Das ganze sollte ungefähr wie folgt aussehen. <br>
 Terminal 1: <br>
 ```bash 
@@ -111,7 +111,7 @@ Terminal 2: <br>
 root@ubuntu-VirtualBox:/home/ubuntu/Abschlussarbeit/Firecracker# sh start.sh 
 ```
 
-Wenn wir ```bash starteFirecracker.sh``` starten und danach ```bash start.sh```. Sollte es wie folgt aussehen: <br>
+Wenn wir ```starteFirecracker.sh``` starten und danach ```start.sh```. Sollte es wie folgt aussehen: <br>
 Terminal 1:
 ```bash
 root@ubuntu-VirtualBox:/home/ubuntu/Abschlussarbeit/Firecracker# sh startFirecracker.sh 
@@ -500,7 +500,7 @@ curl -fsSL -o hello-vmlinux.bin https://s3.amazonaws.com/spec.ccfc.min/img/hello
 ```
 
 # Firecracker-Container repository <br>
-in ```bash ~/go``` Pfad den repostory clonen. <br>
+in ```~/go``` Pfad den repostory clonen. <br>
 ```bash
 git clone --recurse-submodules https://github.com/firecracker-microvm/firecracker-containerd
 ```
@@ -532,7 +532,7 @@ Danach sollten folgende Daten vorhanden sein: <br>
 ```
 
 # Image aufbauen <br>
-Bevor wir den Image aufbauen müssen wir ```bash Docker API Socket``` anschalten. <br>
+Bevor wir den Image aufbauen müssen wir ```Docker API Socket``` anschalten. <br>
 
 ```bash
 sudo nano /etc/systemd/system/docker.service.d/startup_options.conf
@@ -557,7 +557,7 @@ sudo cp tools/image-builder/rootfs.img /var/lib/firecracker-containerd/runtime/d
 ```
 # Konfiguration von Firecracker-Containerd <br>
 
-Wir müssen erstmal die Datei ```bash /etc/containerd/config.toml ``` richtig konfigurieren. Bitte passt die entsprechede Pfade ab. <br> 
+Wir müssen erstmal die Datei ```devmapper``` richtig konfigurieren. Bitte passt die entsprechede Pfade ab. <br> 
 ```bash
 #   Copyright 2018-2020 Docker Inc.
 
@@ -603,9 +603,9 @@ state = "/run/containerd"
 #  level = "info"
 ```
 
-Jetzt muss der Ordner ```bash devmapper``` unter dem Verzeichnis: ```bash /io.containerd.snapshotter.v1.aufs/snapshots``` erstellt werden und die Datei ```bash devmapper.sh``` under dem Verzeichnis ```bash /var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshots/devmapper``` ausgeführt werden.  <br>
+Jetzt muss der Ordner ```devmapper``` unter dem Verzeichnis: ```/io.containerd.snapshotter.v1.aufs/snapshots``` erstellt werden und die Datei ```devmapper.sh``` unter dem Verzeichnis ```/var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshots/devmapper``` ausgeführt werden.  <br>
 
-Der Inahlt ```bash devmapper.sh``` sieht folgendermaßen aus: <br>
+Der Inahlt ```devmapper.sh``` sieht folgendermaßen aus: <br>
 ```bash
 #!/bin/bash
 
