@@ -603,9 +603,9 @@ state = "/run/containerd"
 #  level = "info"
 ```
 
-Jetzt muss die Datei ```bash devmapper``` unter dem Verzeichnis: ```bash /var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshots``` erstellt werden.  <br>
+Jetzt muss der Ordner ```bash devmapper``` unter dem Verzeichnis: ```bash /io.containerd.snapshotter.v1.aufs/snapshots``` erstellt werden und die Datei ```bash devmapper.sh``` under dem Verzeichnis ```bash /var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshots/devmapper``` ausgeführt werden.  <br>
 
-Mit folgende Inhalt: <br>
+Der Inahlt ```bash devmapper.sh``` sieht folgendermaßen aus: <br>
 ```bash
 #!/bin/bash
 
