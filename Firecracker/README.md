@@ -503,11 +503,11 @@ curl -fsSL -o hello-vmlinux.bin https://s3.amazonaws.com/spec.ccfc.min/img/hello
 in ```bash ~/go``` Pfad den repostory clonen. <br>
 ```bash
 git clone --recurse-submodules https://github.com/firecracker-microvm/firecracker-containerd
-make all
 ```
 
 Jetzt müssen wir bestimmte Binärdateien aufbauen. <br>
 ```bash
+cd firecracker-containerd
 GO111MODULE=on make all
 ```
 
