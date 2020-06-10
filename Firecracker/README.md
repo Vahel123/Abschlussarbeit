@@ -447,3 +447,87 @@ PING google.de (172.217.18.3): 56 data bytes
 round-trip min/avg/max = 16.319/29.113/61.114 ms
 ```
 Finish! <br>
+
+# 1. Firecracker installieren und über ein Container ausführen <br>
+Zunächst benötigen wir wieder unsere Tools. <br>
+
+# Goolang: 
+```bash
+sudo apt-get update  
+sudo apt-get -y upgrade  
+cd /tmp  
+wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz
+sudo tar -xvf go1.13.3.linux-amd64.tar.gz  
+sudo mv go /usr/local 
+
+export GOROOT=/usr/local/go 
+export GOPATH=~/go  
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH 
+
+go env // Pfade überprüfen  
+```
+
+# Docker
+Hier könnt ihr es über die  <a href="https://docs.docker.com/get-docker/.">Docker </a> herunterladen oder über mein Github <a href="https://github.com/Vahel123/Abschlussarbeit/blob/master/Docker/README.md">Link </a> <br>
+
+
+# Hardwarde überprüfen <br>
+```bash
+#!/bin/bash
+err=""; \
+[ "$(uname) $(uname -m)" = "Linux x86_64" ] \
+  || err="ERROR: your system is not Linux x86_64."; \
+[ -r /dev/kvm ] && [ -w /dev/kvm ] \
+  || err="$err\nERROR: /dev/kvm is innaccessible."; \
+(( $(uname -r | cut -d. -f1)*1000 + $(uname -r | cut -d. -f2) >= 4014 )) \
+  || err="$err\nERROR: your kernel version ($(uname -r)) is too old."; \
+dmesg | grep -i "hypervisor detected" \
+  && echo "WARNING: you are running in a virtual machine. Firecracker is not well tested under nested virtualization."; \
+[ -z "$err" ] && echo "Your system looks ready for Firecracker!" || echo -e "$err"
+```
+
+Als Ergebnis sollten folgende Zeile angezeigt werden: <br>
+```bash
+WARNING: you are running in a virtual machine. Firecracker is not well tested under nested virtualization.
+Your system looks ready for Firecracker!
+```
+
+
+# Kernel
+Wir benötigen auch hier ein Kernel. <br>
+```bash
+curl -fsSL -o hello-vmlinux.bin https://s3.amazonaws.com/spec.ccfc.min/img/hello/kernel/hello-vmlinux.bin
+```
+
+# Firecracker-Container repository <br>
+in ```bash ~/go``` Pfad den repostory clonen. <br>
+```bash
+git clone --recurse-submodules https://github.com/firecracker-microvm/firecracker-containerd
+make all
+```
+
+Jetzt müssen wir bestimmte Binärdateien aufbauen. <br>
+```bash
+GO111MODULE=on make all
+```
+
+Danach sollten folgende Binärdateien erzeugt wurden sein. <br>
+```bash
+
+   -  runtime/containerd-shim-aws-firecracker
+   - firecracker-control/cmd/containerd/firecracker-containerd
+   - firecracker-control/cmd/containerd/firecracker-ctr
+```
+
+jetzt lassen wir Firecracker aufbauen. <br>
+
+```bash
+make firecracker
+```
+Danach sollten folgende Daten vorhanden sein: <br>
+```bash
+~/go/src/github.com/firecracker-containerd/_submodules/firecracker/build/cargo_target/x86_64-unknown-linux-musl/release/firecracker
+
+~/go/src/github.com/firecracker-containerd/_submodules/firecracker/build/cargo_target/x86_64-unknown-linux-musl/release/jailer
+```
+
