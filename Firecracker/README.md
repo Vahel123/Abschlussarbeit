@@ -448,7 +448,7 @@ round-trip min/avg/max = 16.319/29.113/61.114 ms
 ```
 Finish! <br>
 
-# 1. Firecracker installieren und über ein Container ausführen <br>
+# 2. Firecracker installieren und über ein Container ausführen <br>
 Zunächst benötigen wir wieder unsere Tools. <br>
 
 # Goolang: 
@@ -514,7 +514,7 @@ GO111MODULE=on make all
 Danach sollten folgende Binärdateien erzeugt wurden sein. <br>
 ```bash
 
-   -  runtime/containerd-shim-aws-firecracker
+   - runtime/containerd-shim-aws-firecracker
    - firecracker-control/cmd/containerd/firecracker-containerd
    - firecracker-control/cmd/containerd/firecracker-ctr
 ```
