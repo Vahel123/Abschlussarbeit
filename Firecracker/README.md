@@ -660,7 +660,7 @@ cd ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd
 
 Image pullen <br>
 ```bash
-sudo ./firecracker-ctr --address /run/containerd/containerd.sock images \
-pull --snapshotter  devmapper \
-docker.io/library/busybox:latest
+sudo ./firecracker-ctr --address /run/firecracker-containerd/containerd.sock images \
+  pull --snapshotter devmapper \
+  docker.io/library/busybox:latest
 ```
