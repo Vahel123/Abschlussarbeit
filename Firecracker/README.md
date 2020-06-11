@@ -557,7 +557,7 @@ sudo cp tools/image-builder/rootfs.img /var/lib/firecracker-containerd/runtime/d
 ```
 # Konfiguration von Firecracker-Containerd <br>
 
-Wir müssen erstmal die Datei ```devmapper``` richtig konfigurieren. Bitte passt die entsprechede Pfade ab. <br> 
+Wir müssen erstmal die Datei ```/etc/containerd/config.toml``` richtig konfigurieren. Bitte passt die entsprechede Pfade ab. <br> 
 ```bash
 #   Copyright 2018-2020 Docker Inc.
 
@@ -603,9 +603,9 @@ state = "/run/containerd"
 #  level = "info"
 ```
 
-Jetzt muss der Ordner ```devmapper``` unter dem Verzeichnis: ```/io.containerd.snapshotter.v1.aufs/snapshots``` erstellt werden und die Datei ```devmapper.sh``` unter dem Verzeichnis ```/var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshots/devmapper``` ausgeführt werden.  <br>
+Jetzt muss der Ordner ```devmapper``` unter dem Verzeichnis: ```/io.containerd.snapshotter.v1.aufs/snapshots``` erstellt werden.  <br>
 
-Der Inahlt ```devmapper.sh``` sieht folgendermaßen aus: <br>
+Der Inahlt ```devmapper``` sieht folgendermaßen aus: <br>
 ```bash
 #!/bin/bash
 
@@ -657,4 +657,11 @@ Start container <br>
 ```bash
  sudo PATH=$PATH ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-containerd  \
   --config /etc/containerd/config.toml
+```
+
+Image pullen <br>
+```bash
+sudo ./firecracker-ctr --address /run/containerd/containerd.sock images \
+pull --snapshotter  devmapper \
+docker.io/library/busybox:latest
 ```
