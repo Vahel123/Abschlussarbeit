@@ -574,15 +574,15 @@ Wir müssen erstmal die Datei ```/etc/containerd/config.toml``` richtig konfigur
 #   limitations under the License.
 
 disabled_plugins = ["cri"]
-root = "/var/lib/containerd/io.containerd.snapshotter.v1.aufs"
-state = "/run/containerd"
+root = "/var/lib/firecracker-containerd/containerd"
+state = "/run/firecracker-containerd"
 [grpc]
-  address = "/run/containerd/containerd.sock"
+  address = "/run/firecracker-containerd/containerd.sock"
 [plugins]
   [plugins.devmapper]
     pool_name = "fc-dev-thinpool"
     base_image_size = "10GB"
-    root_path = "/var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshots/devmapper"
+    root_path = "/var/lib/firecracker-containerd/snapshotter/devmapper"
 [debug]
   level = "debug"
 
@@ -603,9 +603,7 @@ state = "/run/containerd"
 #  level = "info"
 ```
 
-Jetzt muss der Ordner ```devmapper``` unter dem Verzeichnis: ```/io.containerd.snapshotter.v1.aufs/snapshots``` erstellt werden.  <br>
-
-Der Inahlt ```devmapper``` sieht folgendermaßen aus: <br>
+AlternatiV.
 ```bash
 #!/bin/bash
 
@@ -614,7 +612,7 @@ Der Inahlt ```devmapper``` sieht folgendermaßen aus: <br>
 
 set -ex
 
-DIR=/var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshots/devmapper
+DIR=/var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshotter/devmapper
 POOL=fc-dev-thinpool
 
 if [[ ! -f "${DIR}/data" ]]; then
@@ -655,6 +653,7 @@ mkdir -p /var/lib/firecracker-containerd
 ```
 Start container <br>
 ```bash
+cd ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/
  sudo PATH=$PATH ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-containerd  \
   --config /etc/containerd/config.toml
 ```
