@@ -621,11 +621,11 @@ sudo truncate -s 100G "${DATA_DIR}/data"
 
 # Create metadata file
 sudo touch "${DATA_DIR}/meta"
-sudo truncate -s 10G "${DATA_DIR}/meta"
+sudo truncate -s 10G "${DATA_DIR}/metadata"
 
 # Allocate loop devices
 DATA_DEV=$(sudo losetup --find --show "${DATA_DIR}/data")
-META_DEV=$(sudo losetup --find --show "${DATA_DIR}/meta")
+META_DEV=$(sudo losetup --find --show "${DATA_DIR}/metadata")
 
 # Define thin-pool parameters.
 # See https://www.kernel.org/doc/Documentation/device-mapper/thin-provisioning.txt for details.
@@ -635,11 +635,33 @@ LENGTH_IN_SECTORS=$(echo $((${DATA_SIZE}/${SECTOR_SIZE})))
 DATA_BLOCK_SIZE=128
 LOW_WATER_MARK=32768
 
-# Create a thin-pool device
-sudo dmsetup create "${POOL_NAME}" \
-    --table "0 ${LENGTH_IN_SECTORS} thin-pool ${META_DEV} ${DATA_DEV} ${DATA_BLOCK_SIZE} ${LOW_WATER_MARK}"
+THINP_TABLE="0 ${LENGTH_IN_SECTORS} thin-pool ${META_DEV} ${DATA_DEV} ${DATA_BLOCK_SIZE} ${LOW_WATER_MARK} 1 skip_block_zeroing"
+echo "${THINP_TABLE}"
 
-cat << EOF
+if ! $(dmsetup reload "${POOL_NAME}" --table "${THINP_TABLE}"); then
+dmsetup create "${POOL_NAME}" --table "${THINP_TABLE}"
+fi
+```
+Jetzt müssen noch die Datei ```firecracker-runtime.json``` richtig einstellen. <br>
+Die Datei liegt meistens im Pfad ```/ets/containerd/```.
+```bash
+{
+  "firecracker_binary_path": "/usr/local/bin/firecracker",
+  "kernel_image_path": "/var/lib/firecracker-containerd/runtime/hello-vmlinux.bin",
+  "kernel_args": "console=ttyS0 noapic reboot=k panic=1 pci=off nomodules ro systemd.journald.forward_to_console systemd.unit=firecracker.target init=/sbin/overlay-init",
+  "root_drive": "/var/lib/firecracker-containerd/runtime/default-rootfs.img",
+  "cpu_template": "T2",
+  "log_fifo": "fc-logs.fifo",
+  "log_level": "Debug",
+  "metrics_fifo": "fc-metrics.fifo",
+  "shim_base_dir": "/root/go/src/github.com/firecracker-containerd/runtime/containerd-shim-aws-firecracker",
+  "default_network_interfaces": [{
+    "CNIConfig": {
+      "NetworkName": "fcnet",
+      "InterfaceName": "veth0"
+    }
+  }]
+}
 ```
 # Firecracker Container starten <br>
 ```bash
@@ -648,7 +670,7 @@ mkdir -p /var/lib/firecracker-containerd
 Tool starten <br>
 ```bash
  sudo PATH=$PATH ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-containerd  \
-  --config /etc/firecracker-containerd/config.toml
+  --config /etc/containerd/config.toml
 ```
 
 Image pullen <br>
