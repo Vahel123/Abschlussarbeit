@@ -670,19 +670,19 @@ Tool starten <br>
 
 Image pullen <br>
 ```bash
-cd ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/
-sudo ./firecracker-ctr --address /run/firecracker-containerd/containerd.sock images \
+sudo ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-ctr --address /run/firecracker-containerd/containerd.sock images \
   pull --snapshotter devmapper \
-  docker.io/library/busybox:latest#
+  docker.io/library/busybox:latest
 ```
 
 Container starten <br>
 ```bash
-cd ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/
-sudo ./firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
-  run \
-  --snapshotter devmapper \
-  --runtime aws.firecracker \
-  --rm --tty --net-host \
-  docker.io/library/busybox:latest busybox-test
+sudo ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
+     run \
+     --snapshotter devmapper \
+     --runtime aws.firecracker \
+     --rm --tty --net-host \
+     docker.io/library/busybox:latest \
+     test
   ```
+  
