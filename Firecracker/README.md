@@ -662,17 +662,27 @@ EOF
 ```bash
 mkdir -p /var/lib/firecracker-containerd
 ```
-Start container <br>
+Tool starten <br>
 ```bash
-cd ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/
  sudo PATH=$PATH ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-containerd  \
   --config /etc/containerd/config.toml
 ```
 
-
 Image pullen <br>
 ```bash
+cd ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/
 sudo ./firecracker-ctr --address /run/firecracker-containerd/containerd.sock images \
   pull --snapshotter devmapper \
-  docker.io/library/busybox:latest
+  docker.io/library/busybox:latest#
 ```
+
+Container starten <br>
+```bash
+cd ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/
+sudo ./firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
+  run \
+  --snapshotter devmapper \
+  --runtime aws.firecracker \
+  --rm --tty --net-host \
+  docker.io/library/busybox:latest busybox-test
+  ```
