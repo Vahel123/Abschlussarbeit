@@ -603,49 +603,60 @@ state = "/run/firecracker-containerd"
 #  level = "info"
 ```
 
-AlternatiV.
+# Thinpool Datei erstellen <br>
+Damit unser Container laufen müssen wir ein Thinpool Datei erstellen. <br>
+Am besten legt ihr eine Datei an wie zum Beispiel ```CreateThinpool.sh ``` und führt danach die folgenden Script Zeilen aus.
 ```bash
 #!/bin/bash
-
-# Sets up a devicemapper thin pool with loop devices in
-# /var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshots/devmapper
-
 set -ex
 
-DIR=/var/lib/containerd/io.containerd.snapshotter.v1.aufs/snapshotter/devmapper
-POOL=fc-dev-thinpool
+DATA_DIR=/var/lib/firecracker-containerd/snapshotter/devmapper
+POOL_NAME=fc-dev-thinpool
 
-if [[ ! -f "${DIR}/data" ]]; then
-touch "${DIR}/data"
-truncate -s 100G "${DIR}/data"
-fi
+mkdir -p ${DATA_DIR}
 
-if [[ ! -f "${DIR}/metadata" ]]; then
-touch "${DIR}/metadata"
-truncate -s 2G "${DIR}/metadata"
-fi
+# Create data file
+sudo touch "${DATA_DIR}/data"
+sudo truncate -s 100G "${DATA_DIR}/data"
 
-DATADEV="$(losetup --output NAME --noheadings --associated ${DIR}/data)"
-if [[ -z "${DATADEV}" ]]; then
-DATADEV="$(losetup --find --show ${DIR}/data)"
-fi
+# Create metadata file
+sudo touch "${DATA_DIR}/meta"
+sudo truncate -s 10G "${DATA_DIR}/meta"
 
-METADEV="$(losetup --output NAME --noheadings --associated ${DIR}/metadata)"
-if [[ -z "${METADEV}" ]]; then
-METADEV="$(losetup --find --show ${DIR}/metadata)"
-fi
+# Allocate loop devices
+DATA_DEV=$(sudo losetup --find --show "${DATA_DIR}/data")
+META_DEV=$(sudo losetup --find --show "${DATA_DIR}/meta")
 
-SECTORSIZE=512
-DATASIZE="$(blockdev --getsize64 -q ${DATADEV})"
-LENGTH_SECTORS=$(bc <<< "${DATASIZE}/${SECTORSIZE}")
-DATA_BLOCK_SIZE=128 # see https://www.kernel.org/doc/Documentation/device-mapper/thin-provisioning.txt
-LOW_WATER_MARK=32768 # picked arbitrarily
-THINP_TABLE="0 ${LENGTH_SECTORS} thin-pool ${METADEV} ${DATADEV} ${DATA_BLOCK_SIZE} ${LOW_WATER_MARK} 1 skip_block_zeroing"
-echo "${THINP_TABLE}"
+# Define thin-pool parameters.
+# See https://www.kernel.org/doc/Documentation/device-mapper/thin-provisioning.txt for details.
+SECTOR_SIZE=512
+DATA_SIZE="$(sudo blockdev --getsize64 -q ${DATA_DEV})"
+LENGTH_IN_SECTORS=$(echo $((${DATA_SIZE}/${SECTOR_SIZE})))
+DATA_BLOCK_SIZE=128
+LOW_WATER_MARK=32768
 
-if ! $(dmsetup reload "${POOL}" --table "${THINP_TABLE}"); then
-dmsetup create "${POOL}" --table "${THINP_TABLE}"
-fi
+# Create a thin-pool device
+sudo dmsetup create "${POOL_NAME}" \
+    --table "0 ${LENGTH_IN_SECTORS} thin-pool ${META_DEV} ${DATA_DEV} ${DATA_BLOCK_SIZE} ${LOW_WATER_MARK}"
+
+cat << EOF
+#
+# Add this to your config.toml configuration file and restart containerd daemon
+#
+disabled_plugins = ["cri"]
+root = "/var/lib/firecracker-containerd/containerd"
+state = "/run/firecracker-containerd"
+[grpc]
+  address = "/run/firecracker-containerd/containerd.sock"
+[plugins]
+  [plugins.devmapper]
+    pool_name = "${POOL_NAME}"
+    base_image_size = "10GB"
+    root_path = "${DATA_DIR}"
+[debug]
+  level = "debug"
+EOF
+
 ```
 # Firecracker Container starten <br>
 ```bash
