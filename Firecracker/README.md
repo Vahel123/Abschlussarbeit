@@ -574,7 +574,7 @@ Wir müssen erstmal die Datei ```/etc/containerd/config.toml``` richtig konfigur
 #   limitations under the License.
 
 disabled_plugins = ["cri"]
-root = "/var/lib/firecracker-containerd/containerd/*"
+root = "/var/lib/firecracker-containerd/containerd"
 state = "/run/firecracker-containerd"
 [grpc]
   address = "/run/firecracker-containerd/containerd.sock"
@@ -640,23 +640,6 @@ sudo dmsetup create "${POOL_NAME}" \
     --table "0 ${LENGTH_IN_SECTORS} thin-pool ${META_DEV} ${DATA_DEV} ${DATA_BLOCK_SIZE} ${LOW_WATER_MARK}"
 
 cat << EOF
-#
-# Add this to your config.toml configuration file and restart containerd daemon
-#
-disabled_plugins = ["cri"]
-root = "/var/lib/firecracker-containerd/containerd"
-state = "/run/firecracker-containerd"
-[grpc]
-  address = "/run/firecracker-containerd/containerd.sock"
-[plugins]
-  [plugins.devmapper]
-    pool_name = "${POOL_NAME}"
-    base_image_size = "10GB"
-    root_path = "${DATA_DIR}"
-[debug]
-  level = "debug"
-EOF
-
 ```
 # Firecracker Container starten <br>
 ```bash
@@ -665,7 +648,7 @@ mkdir -p /var/lib/firecracker-containerd
 Tool starten <br>
 ```bash
  sudo PATH=$PATH ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-containerd  \
-  --config /etc/containerd/config.toml
+  --config /etc/firecracker-containerd/config.toml
 ```
 
 Image pullen <br>
