@@ -574,7 +574,7 @@ Wir müssen erstmal die Datei ```/etc/containerd/config.toml``` richtig konfigur
 #   limitations under the License.
 
 disabled_plugins = ["cri"]
-root = "/var/lib/firecracker-containerd/containerd"
+root = "/var/lib/firecracker-containerd/containerd/*"
 state = "/run/firecracker-containerd"
 [grpc]
   address = "/run/firecracker-containerd/containerd.sock"
