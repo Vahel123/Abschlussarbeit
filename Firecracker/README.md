@@ -658,6 +658,7 @@ cd ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd
   --config /etc/containerd/config.toml
 ```
 
+
 Image pullen <br>
 ```bash
 sudo ./firecracker-ctr --address /run/firecracker-containerd/containerd.sock images \
