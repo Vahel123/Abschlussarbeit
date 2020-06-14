@@ -492,23 +492,50 @@ WARNING: you are running in a virtual machine. Firecracker is not well tested un
 Your system looks ready for Firecracker!
 ```
 
+# Docker CE installieren <br>
+```bash
+sudo mkdir -p /etc/apt/sources.list.d
+echo "deb http://ftp.debian.org/debian buster-backports main" | \
+  sudo tee /etc/apt/sources.list.d/buster-backports.list
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get \
+  install --yes \
+  golang-1.13 \
+  make \
+  git \
+  curl \
+  e2fsprogs \
+  util-linux \
+  bc \
+  gnupg
+
+export PATH=/usr/lib/go-1.13/bin:$PATH
+
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+apt-key finger docker@docker.com | grep '9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88' || echo '**Cannot find Docker key**'
+echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | \
+     sudo tee /etc/apt/sources.list.d/docker.list
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get \
+     install --yes \
+     docker-ce aufs-tools-
+sudo usermod -aG docker $(whoami)
+
+```
+# Debian Image installieren <br>
+```bash
+git clone https://github.com/firecracker-microvm/firecracker-containerd.git
+cd firecracker-containerd
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y dmsetup
+sg docker -c 'make all image firecracker'
+sudo make install install-firecracker demo-network
+```
+
 
 # Kernel
 Wir benötigen auch hier ein Kernel. <br>
 ```bash
 curl -fsSL -o hello-vmlinux.bin https://s3.amazonaws.com/spec.ccfc.min/img/hello/kernel/hello-vmlinux.bin
-```
-
-# Firecracker-Container repository <br>
-in ```~/go``` Pfad den repostory clonen. <br>
-```bash
-git clone --recurse-submodules https://github.com/firecracker-microvm/firecracker-containerd
-```
-
-Jetzt müssen wir bestimmte Binärdateien aufbauen. <br>
-```bash
-cd firecracker-containerd
-GO111MODULE=on make all
 ```
 
 Danach sollten folgende Binärdateien erzeugt wurden sein. <br>
@@ -519,11 +546,6 @@ Danach sollten folgende Binärdateien erzeugt wurden sein. <br>
    - firecracker-control/cmd/containerd/firecracker-ctr
 ```
 
-jetzt lassen wir Firecracker aufbauen. <br>
-
-```bash
-make firecracker
-```
 Danach sollten folgende Daten vorhanden sein: <br>
 ```bash
 ~/go/src/github.com/firecracker-containerd/_submodules/firecracker/build/cargo_target/x86_64-unknown-linux-musl/release/firecracker
@@ -531,9 +553,7 @@ Danach sollten folgende Daten vorhanden sein: <br>
 ~/go/src/github.com/firecracker-containerd/_submodules/firecracker/build/cargo_target/x86_64-unknown-linux-musl/release/jailer
 ```
 
-# Image aufbauen <br>
-Bevor wir den Image aufbauen müssen wir ```Docker API Socket``` anschalten. <br>
-
+# Docker API-Socket aktivieren <br>
 ```bash
 sudo nano /etc/systemd/system/docker.service.d/startup_options.conf
 ```
@@ -551,7 +571,6 @@ sudo systemctl restart docker.service
 
 Jetzt können wir unser Image aufbauen. <br>
 ```bash
-make image
 sudo mkdir -p /var/lib/firecracker-containerd/runtime
 sudo cp tools/image-builder/rootfs.img /var/lib/firecracker-containerd/runtime/default-rootfs.img
 ```
@@ -675,19 +694,20 @@ Tool starten <br>
 
 Image pullen <br>
 ```bash
-sudo ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-ctr --address /run/firecracker-containerd/containerd.sock images \
-  pull --snapshotter devmapper \
-  docker.io/library/busybox:latest
+sudo ./firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
+     image pull \
+     --snapshotter devmapper \
+     docker.io/library/debian:latest
 ```
 
 Container starten <br>
 ```bash
-sudo ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
+sudo firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
      run \
      --snapshotter devmapper \
      --runtime aws.firecracker \
      --rm --tty --net-host \
-     docker.io/library/busybox:latest \
-     test
+     docker.io/library/debian:latest \
+     Debian
   ```
   
