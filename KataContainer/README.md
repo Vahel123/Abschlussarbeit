@@ -143,7 +143,7 @@ export ROOTFS_DIR=${GOPATH}/src/github.com/kata-containers/osbuilder/rootfs-buil
 sudo rm -rf ${ROOTFS_DIR}  
 cd $GOPATH/src/github.com/kata-containers/osbuilder/rootfs-builder 
 Jetzt wählt ihr euer Ubuntu System aus in meinem Fall verwende ich Alpine. Ihr könnt aber auch Fedore, Centos usw. verwenden, 
-export distro=alpine   
+export distro=debian   
 script -fec 'sudo -E GOPATH=$GOPATH USE_DOCKER=true SECCOMP=no ./rootfs.sh ${distro}'  
 ```
 # Rootfs aufbauen <br>
