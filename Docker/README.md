@@ -1,4 +1,4 @@
-# Docker mit Alpine Image installieren und diese dann innerhalb eines Container ausführen. <br>
+# Docker mit Debian Image installieren und diese dann innerhalb eines Container ausführen. <br>
 
 Zunächst installieren wir Docker. <br>
 
@@ -64,18 +64,18 @@ sudo docker run hello-world
 
 Jetzt könnt ihr mit dem Befehl ```sudo service Docker start/status/stop``` überprüfen ob alles funktioniert. <br>
 
-Jetzt kommen wir zu dem Image Alpine! <br>
+Jetzt kommen wir zu dem Image Debian! <br>
 
-# Docker Image Alpine installieren <br>
+# Docker Image Debian installieren <br>
 
 Zunächst installieren wir die Image Datei. <br>
 ```bash 
-docker pull alpine
+docker pull debian
 ```
 
-# Alpine Docker Run <br>
+# Debian Docker Run <br>
 ```bash
-docker run -it alpine /bin/sh
+docker run -it debian /bin/sh
 ```
 Jetzt müssten wir uns in dem Container befinden. <br>
 
@@ -83,6 +83,6 @@ Jetzt müssten wir uns in dem Container befinden. <br>
 ```bash
 docker ps -a
 CONTAINER ID        IMAGE                  COMMAND                  CREATED              STATUS                        PORTS                                           NAMES
-8647ce2b84a5        alpine                 "/bin/sh"                About a minute ago   Up About a minute                                                             elegant_rosalind
+8647ce2b84a5        debian                 "/bin/sh"                About a minute ago   Up About a minute                                                             elegant_rosalind
 ```
 Erledigt! <br>
