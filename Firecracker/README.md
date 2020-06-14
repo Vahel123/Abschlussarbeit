@@ -694,7 +694,7 @@ Tool starten <br>
 
 Image pullen <br>
 ```bash
-sudo ./firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
+sudo ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
      image pull \
      --snapshotter devmapper \
      docker.io/library/debian:latest
@@ -702,7 +702,7 @@ sudo ./firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
 
 Container starten <br>
 ```bash
-sudo firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
+sudo ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
      run \
      --snapshotter devmapper \
      --runtime aws.firecracker \
