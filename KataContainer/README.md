@@ -142,7 +142,9 @@ Jetzt erstellen wir unser Rootfs Image mit den folgenden Befehlen:  <br>
 export ROOTFS_DIR=${GOPATH}/src/github.com/kata-containers/osbuilder/rootfs-builder/rootfs
 sudo rm -rf ${ROOTFS_DIR}  
 cd $GOPATH/src/github.com/kata-containers/osbuilder/rootfs-builder 
-Jetzt wählt ihr euer Ubuntu System aus in meinem Fall verwende ich Alpine. Ihr könnt aber auch Fedore, Centos usw. verwenden, 
+```
+Jetzt wählt ihr euer Ubuntu System aus in meinem Fall verwende ich Debian. Ihr könnt aber auch Fedore, Centos, oder Alpine verwenden. <br>
+```bash
 export distro=debian   
 script -fec 'sudo -E GOPATH=$GOPATH USE_DOCKER=true SECCOMP=no ./rootfs.sh ${distro}'  
 ```
