@@ -34,8 +34,9 @@ sudo apt-get install make
 ```bash
 sudo apt-get install gcc 
 ```
-```bash
+
 # CURL: <br> 
+```bash
 sudo apt-get update 
 sudo apt install curl 
 ```
