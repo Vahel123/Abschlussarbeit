@@ -125,8 +125,9 @@ go get -d -u github.com/kata-containers/proxy
 cd $GOPATH/src/github.com/kata-containers/proxy
 
 make && sudo make install  
-
-# Kata Shim: 
+```
+```bash
+# Kata Shim: <br>
 go get -d -u github.com/kata-containers/shim
 
 cd $GOPATH/src/github.com/kata-containers/shim
