@@ -1,5 +1,3 @@
-# Firecracker installieren und ausführen <br>
-
 # Firecracker installieren <br>
 ```bash
 sudo setfacl -m u:${USER}:rw /dev/kvm
