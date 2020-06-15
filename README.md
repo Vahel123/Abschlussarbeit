@@ -1,7 +1,7 @@
 # Abschlussarbeit
 Thema: Leistungsbewertung von VM-basierten Containerlösungen  <br>
 
-# KataContainer installieren <br>
+# Kata-Container installieren <br>
  <a href="https://github.com/Vahel123/Abschlussarbeit/blob/master/kata-container">Link</a> 
 
 # Docker installieren <br>
