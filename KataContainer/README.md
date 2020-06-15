@@ -33,7 +33,9 @@ sudo apt-get install make
 # GCC:  <br>
 ```bash
 sudo apt-get install gcc 
-CURL: 
+```
+```bash
+# CURL: <br> 
 sudo apt-get update 
 sudo apt install curl 
 ```
@@ -42,7 +44,9 @@ sudo apt install curl
 ```bash
 sudo apt-get update  
 sudo apt-get install flex 
-BISON: 
+```
+# BISON: <br>
+```bash
 sudo apt-get update -y 
 sudo apt-get install -y bison 
 ```
