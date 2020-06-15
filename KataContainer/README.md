@@ -33,7 +33,10 @@ sudo apt-get install make
 # GCC:  <br>
 ```bash
 sudo apt-get install gcc 
-CURL: 
+```
+
+# CURL: <br> 
+```bash
 sudo apt-get update 
 sudo apt install curl 
 ```
@@ -42,7 +45,9 @@ sudo apt install curl
 ```bash
 sudo apt-get update  
 sudo apt-get install flex 
-BISON: 
+```
+# BISON: <br>
+```bash
 sudo apt-get update -y 
 sudo apt-get install -y bison 
 ```
@@ -99,7 +104,7 @@ Jetzt haben wir unser erste Kata-Container erstellt aber ohne irgendein Betriebs
 
 Zunächst werden wir ein Rootfs Datei erstellen. Ihr könnt auch eine Intird verwenden. Bei mir hat es aber ganz gut mit dem Rootfs image funktioniert.   <br>
 
-Bevor wir beginnen müssen wir ein paar Vorkehrungen treffen. Unter dem Pfad /usr/share/defaults/kata-containers/configuration.toml müsst ihr ab der Zeile [hypervisor.qemu] initrd = ausklammern, weil wir eine Rootfs image erstellen möchten und kein initrd.   <br>
+Bevor wir beginnen müssen wir ein paar Vorkehrungen treffen. Unter dem Pfad `/usr/share/defaults/kata-containers/configuration.toml` müsst ihr ab der Zeile `[hypervisor.qemu] initrd = `ausklammern, weil wir eine Rootfs image erstellen möchten und kein initrd.   <br>
 
 Das sieht folgendermaßen aus:  <br>
 ```bash
@@ -120,8 +125,9 @@ go get -d -u github.com/kata-containers/proxy
 cd $GOPATH/src/github.com/kata-containers/proxy
 
 make && sudo make install  
-
-# Kata Shim: 
+```
+```bash
+# Kata Shim: <br>
 go get -d -u github.com/kata-containers/shim
 
 cd $GOPATH/src/github.com/kata-containers/shim
