@@ -1,0 +1,35 @@
+run:
+  timeout: 5m
+
+linters:
+  disable-all: true
+  enable:
+    - govet
+    - staticcheck
+    - unused
+    - gosimple
+    - structcheck
+    - varcheck
+    - ineffassign
+    - deadcode
+    - typecheck
+    - golint
+    - gosec
+    - unconvert
+    - goconst
+    - goimports
+    - misspell
+    - prealloc
+    - scopelint
+    - gocritic
+    - interfacer # Suggests narrower interface types
+    - scopelint # Checks for unpinned variables
+    - gofmt
+
+issues:
+  exclude-use-default: false
+  exclude:
+    - G104 # Errors unhandled
+    - G103 # Use of unsafe calls should be audited
+    - G204 # Subprocess launched with variable
+    - G304 # Potential file inclusion via variable
