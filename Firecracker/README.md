@@ -711,3 +711,35 @@ sudo ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containe
      Debian
   ```
   
+Damit wir eine Netzwerk Verbingung herstellen können müssen wir in dem Container ein Nameserver hiinzufügen, dazu müssen wir zunächst shm umounten. <br>
+Damit wir das machen können müssen wir beim starten des Firecracker Container folgendes hinzufügen. <br>
+```bash
+--privileged \
+```
+
+so sollte es dann aussehen: <br>
+```bash
+sudo ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
+     run \
+     --privileged \
+     --snapshotter devmapper \
+     --runtime aws.firecracker \
+     --rm --tty --net-host \
+     docker.io/library/debian:latest \
+     Debian
+```
+
+Jetzt müssen wir nur noch `/etc/resolv.conf` umounten danach ein Nameserver hinzufügen. <br>
+```bash
+[Container]umount /etc/resolf.conf
+[Container]echo "nameserver 8.8.8.8" > /etc/resolv.conf
+```
+
+Jetzt nur noch ping google.de testen und fertig. <br>
+```bash
+ping google.de
+PING google.de (172.217.18.163) 56(84) bytes of data.
+64 bytes from fra15s29-in-f3.1e100.net (172.217.18.163): icmp_seq=1 ttl=114 time=40.7 ms
+64 bytes from fra15s29-in-f3.1e100.net (172.217.18.163): icmp_seq=2 ttl=114 time=31.5 ms
+64 bytes from fra15s29-in-f3.1e100.net (172.217.18.163): icmp_seq=3 ttl=114 time=46.10 ms
+```
