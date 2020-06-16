@@ -1,5 +1,5 @@
 # In diese Datei befinden sich verschiedene Befehle zum aufzeichenen von verschiedenen Komponnenten.
-# CPU Auslastung in einer Datei Aufzeichnen:
+# CPU Auslastung und Aufzeichnen:
 
 #!/bin/sh
 i=1
@@ -10,7 +10,8 @@ do
   i=`expr $i + 1`
 done
 
-# RAM Auslastung in einer Datei Aufzeichnen:
+#!/bin/sh
+# RAM Auslastung und Aufzeichnen:
 i=1
 while [ $i -le 5 ]
 do
@@ -19,13 +20,15 @@ do
   i=`expr $i + 1`
 done
 
-# Scheduler und CPU Auslastung in einer Datei Aufzeichnen:
+#!/bin/sh
+# Scheduler und CPU Auslastung und Aufzeichnen:
 for ((i=0;i<=300;i++)); 
 do 
 mpstat | tail +4 >> schandcpurtest; 
 done
 
-# I/O’s Auslastung in einer Datei Aufzeichnen:
+#!/bin/sh
+# I/O’s Auslastung und Aufzeichnen:
 i=1
 while [ $i -le 5 ]
 do
@@ -34,17 +37,18 @@ do
   i=`expr $i + 1`
 done
 
-
-# HDD, CPU, Colume Mangaer  Auslastung in einer Datei Aufzeichnen:
+#!/bin/sh
+# HDD, CPU, Volume Manager Auslasten und Aufzeichnen:
 i=1
 while [ $i -le 5 ]
 do
   stress -c 4 -d 4 --timeout 10s
-  idstat | tail +3 >> virtualmemoryandcputest
+  pidstat | tail +3 >> virtualmemoryandcputest
   i=`expr $i + 1`
 done
 
-# Network Controller Auslastung in einer Datei Aufzeichnen:
+#!/bin/sh
+# Network Controller Auslastung und Aufzeichnen:
 i=1
 while [ $i -le 5 ]
 do
@@ -52,7 +56,8 @@ do
   i=`expr $i + 1`
 done
 
-# Disk, I/0 Controller und Block Device Interface Auslastung in einer Datei Aufzeichnen:
+#!/bin/sh
+# Disk, I/0 Controller und Block Device Interface Auslastung und Aufzeichnen:
 i=1
 while [ $i -le 5 ]
 do
