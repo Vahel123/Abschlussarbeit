@@ -301,7 +301,7 @@ PING google.de (172.217.18.3): 56 data bytes
 round-trip min/avg/max = 16.719/18.037/19.355 ms
 ```
 
-# Mit Kata-runtime starten <br>
+# Starten mit kata-runtime <br>
 ```bash
 bundle="/tmp/bundle"
 rootfs="$bundle/rootfs"
