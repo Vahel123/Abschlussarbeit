@@ -272,10 +272,6 @@ Neustart von Docker Systemd <br>
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
-Kata-Container RUN
-```bash
-sudo docker run busybox uname -a
-```
 
 # Docker systmd file updaten <br>
 ```bash
@@ -288,7 +284,7 @@ sudo systemctl restart docker
 ```
 # Erstellte Container ausführen (run) <br>
 ```bash
-sudo docker run -ti --runtime kata-runtime busybox sh
+sudo docker run -ti --runtime kata-runtime debian sh
 ```
 
 # Networking <br>
@@ -305,7 +301,7 @@ PING google.de (172.217.18.3): 56 data bytes
 round-trip min/avg/max = 16.719/18.037/19.355 ms
 ```
 
-# Mit Kata-runtime starten <br>
+# Starten mit kata-runtime <br>
 ```bash
 bundle="/tmp/bundle"
 rootfs="$bundle/rootfs"
@@ -313,4 +309,4 @@ mkdir -p "$rootfs" && (cd "$bundle" && kata-runtime spec)
 sudo docker export $(sudo docker create busybox) | tar -C "$rootfs" -xvf -
 sudo kata-runtime --log=/dev/stdout run --bundle "$bundle" foo
 ```
-Achtung: die erstellte rootfs (siehe oben)  ordner im Verzeichnis `/tmp/bundle` davor anhängen! <br>
+Achtung: die erstellte filesystem Datei `rootfs` von Verzeichnis `${GOPATH}/src/github.com/kata-containers/osbuilder/rootfs-builder` in `/tmp/bundle` kopieren! <br>
