@@ -272,10 +272,6 @@ Neustart von Docker Systemd <br>
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
-Kata-Container RUN
-```bash
-sudo docker run busybox uname -a
-```
 
 # Docker systmd file updaten <br>
 ```bash
@@ -288,7 +284,7 @@ sudo systemctl restart docker
 ```
 # Erstellte Container ausführen (run) <br>
 ```bash
-sudo docker run -ti --runtime kata-runtime busybox sh
+sudo docker run -ti --runtime kata-runtime debian sh
 ```
 
 # Networking <br>
