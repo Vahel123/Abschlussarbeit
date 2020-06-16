@@ -309,4 +309,4 @@ mkdir -p "$rootfs" && (cd "$bundle" && kata-runtime spec)
 sudo docker export $(sudo docker create busybox) | tar -C "$rootfs" -xvf -
 sudo kata-runtime --log=/dev/stdout run --bundle "$bundle" foo
 ```
-Achtung: die erstellte rootfs (siehe oben)  ordner im Verzeichnis `/tmp/bundle` davor anhängen! <br>
+Achtung: die erstellte filesystem Datei `rootfs` von Verzeichnis `${GOPATH}/src/github.com/kata-containers/osbuilder/rootfs-builder` in `/tmp/bundle` kopieren! <br>
