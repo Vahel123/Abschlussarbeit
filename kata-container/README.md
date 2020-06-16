@@ -104,7 +104,7 @@ Jetzt haben wir unser erste Kata-Container erstellt aber ohne irgendein Betriebs
 
 Zunächst werden wir ein Rootfs Datei erstellen. Ihr könnt auch eine Intird verwenden. Bei mir hat es aber ganz gut mit dem Rootfs image funktioniert.   <br>
 
-Bevor wir beginnen müssen wir ein paar Vorkehrungen treffen. Unter dem Pfad `/usr/share/defaults/kata-containers/configuration.toml` müsst ihr ab der Zeile `[hypervisor.qemu] initrd = `ausklammern, weil wir eine Rootfs image erstellen möchten und kein initrd.   <br>
+Bevor wir beginnen müssen wir ein paar Vorkehrungen treffen. Unter dem Pfad `/usr/share/defaults/kata-containers/configuration.toml` und `/etc/kata-containers/configuration.toml` müsst ihr ab der Zeile `[hypervisor.qemu] initrd = `ausklammern, weil wir eine Rootfs image erstellen möchten und kein initrd.   <br>
 
 Das sieht folgendermaßen aus:  <br>
 ```bash
