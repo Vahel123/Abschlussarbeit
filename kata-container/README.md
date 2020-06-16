@@ -118,6 +118,19 @@ Durch # haben wir es ausgeklammert.
 ```
 Bevor wir die Image Datei erstellen benötigen wir noch ein Kata Proxy und Kata Shim, damit unser Kata-Container reibungslos laufen kann. Dafür müssen wir folgende Befehle ausführen:   <br>
 
+# Full debug aktivieren (shim) <br>
+```bash
+sudo mkdir -p /etc/kata-containers/
+sudo install -o root -g root -m 0640 /usr/share/defaults/kata-containers/configuration.toml /etc/kata-containers
+sudo sed -i -e 's/^# *\(enable_debug\).*=.*$/\1 = true/g' /etc/kata-containers/configuration.toml
+sudo sed -i -e 's/^kernel_params = "\(.*\)"/kernel_params = "\1 agent.log=debug initcall_debug"/g' /etc/kata-containers/configuration.toml
+```
+Jetzt in der Datei `/etc/containerd/config.toml` folgende Zeilen hinzufügen:
+```bash
+[debug]
+  level = "debug"
+```
+
 # Kata Proxy:  <br>
 ```bash
 go get -d -u github.com/kata-containers/proxy
@@ -126,8 +139,9 @@ cd $GOPATH/src/github.com/kata-containers/proxy
 
 make && sudo make install  
 ```
-```bash
+
 # Kata Shim: <br>
+```bash
 go get -d -u github.com/kata-containers/shim
 
 cd $GOPATH/src/github.com/kata-containers/shim
