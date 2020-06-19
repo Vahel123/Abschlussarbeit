@@ -1,0 +1,25 @@
+Images mit Dockerfiles erstellen
+Ein Dockerfile beinhaltet alle Befehle für die Erstellung eines Images
+Anweisungen in Dockerfile: 
+FROM: Welches Image die Grundlage für unser neu erzeugtes Image ist. 
+FROM ubuntu:trusty
+MAINTAINER: Den Autor des Images setzen.
+MAINTAINER Frank Tiersch <mail@ftiersch.de>
+RUN: Dieser Befehl führt den Parameter als shell aus. 
+RUN sudo apt-get install -y apache2
+Zweite Verainte mit exec Syntax:
+RUN [„executable“, „param1“, „param2“]
+CMD or ENTRYPOINT: führt ein Standardcommand aus, es kann nur ein CMD Befehl pro Dockerimage definiert werden. 
+CMD echo „Hello world“
+EXPOSE: Ermöglicht die Kommunikation inner- und außerhalb der Container, indem wir Ports freigeben. 
+EXPOSE 80
+ADD or COPY: Beides funktionieren im Prinzip gleich. Man kann eine Datei oder ein Verzeichnis vom Hostsystem auf das Dateisystem image hinzufügen. 
+ADD directory1 /var/www/directory1
+COPY [„directory1“, „/var/www/directory1“]
+LABEL: Metadaten angeben
+LABEL maintainer="Homer Simpson"
+ENV: Umgebungs Variable wird fest ENV 
+http_proxy http://proxy:8080
+Dockerfile bauen. 
+$ docker build -f /path/to/a/Dockerfile.
+
