@@ -86,3 +86,50 @@ CONTAINER ID        IMAGE                  COMMAND                  CREATED     
 8647ce2b84a5        debian                 "/bin/sh"                About a minute ago   Up About a minute                                                             elegant_rosalind
 ```
 Erledigt! <br>
+
+# Eigene Docker image erzeugen <br>
+```bash 
+sudo nano Dockerfile
+```
+Inahlt von Dockerfile:
+```bash
+# Dockerfile für Firecracker-Container, Kata-Container und Docker-Container erstellen.
+# Installation von: Debian System, tools für die Bewertung von Containern, Webserver apache2
+from docker.io/debian
+
+MAINTAINER Vahel Hassan
+
+RUN echo 'Debian wird installiert..'
+RUN apt-get update && apt-get dist-upgrade
+
+RUN echo 'sudo wird installiert..'
+RUN apt-get install sudo -y
+
+RUN echo 'systemd wird installiert..'
+RUN apt-get install systemd -y
+
+# Tools die wir später für unsere Leistungsbewertung benötigen
+RUN echo 'fuer die Messung der Perfomance werden einige tools installiert..'
+RUN sudo apt-get install stress
+
+RUN echo 'sysstat wird installiert..'
+RUN sudo apt-get install sysstat -y
+
+RUN echo 'nistat wird installiert..'
+RUN sudo apt-get install nicstat -y
+
+# Webserver installieren
+RUN echo 'Webserver apache2 wird installiert..'
+RUN sudo apt install apache2 -y
+
+RUN echo 'der Webserver wird gestartet..'
+RUN sudo service apache2 start
+```
+
+# Dockerfile build
+```bash
+docker build -t test .
+docker images 
+REPOSITORY                      TAG                 IMAGE ID            CREATED             SIZE
+test                            latest              3417c1c607bc        5 seconds ago       352MB
+```
