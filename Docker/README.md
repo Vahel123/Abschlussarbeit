@@ -95,35 +95,27 @@ Inahlt von Dockerfile:
 ```bash
 # Dockerfile für Firecracker-Container, Kata-Container und Docker-Container erstellen.
 # Installation von: Debian System, tools für die Bewertung von Containern, Webserver apache2
-from docker.io/debian
+from debian
 
-MAINTAINER Vahel Hassan
+MAINTAINER Vahel Hassan <Vahel.Hassan@outlook.de>
 
-RUN echo 'Debian wird installiert..'
-RUN apt-get update && apt-get dist-upgrade
+RUN apt-get update && apt-get install -y
 
-RUN echo 'sudo wird installiert..'
 RUN apt-get install sudo -y
 
-RUN echo 'systemd wird installiert..'
-RUN apt-get install systemd -y
+RUN sudo apt-get install systemd -y
 
 # Tools die wir später für unsere Leistungsbewertung benötigen
-RUN echo 'fuer die Messung der Perfomance werden einige tools installiert..'
 RUN sudo apt-get install stress
 
-RUN echo 'sysstat wird installiert..'
 RUN sudo apt-get install sysstat -y
 
-RUN echo 'nistat wird installiert..'
 RUN sudo apt-get install nicstat -y
 
 # Webserver installieren
-RUN echo 'Webserver apache2 wird installiert..'
 RUN sudo apt install apache2 -y
 
-RUN echo 'der Webserver wird gestartet..'
-RUN sudo service apache2 start
+CMD sudo service apache2 start
 ```
 
 # Dockerfile build <br>
