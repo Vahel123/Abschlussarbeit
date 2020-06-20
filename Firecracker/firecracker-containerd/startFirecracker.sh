@@ -2,7 +2,7 @@
 sudo ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
      image pull \
      --snapshotter devmapper \
-     docker.io/library/debian:latest
+     docker.io/vahelhassan/debian-test:latest
 
 sudo ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containerd/firecracker-ctr --address /run/firecracker-containerd/containerd.sock \
      run \
@@ -10,5 +10,5 @@ sudo ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containe
      --snapshotter devmapper \
      --runtime aws.firecracker \
      --rm --tty --net-host \
-     docker.io/library/debian:latest \
-     Debian
+     docker.io/vahelhassan/debian-test:latest \
+     test

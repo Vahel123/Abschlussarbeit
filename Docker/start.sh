@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run -it debian /bin/sh
+docker run -it vahelhassan/debian-test /bin/sh
