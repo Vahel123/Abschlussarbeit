@@ -126,10 +126,32 @@ RUN echo 'der Webserver wird gestartet..'
 RUN sudo service apache2 start
 ```
 
-# Dockerfile build
+# Dockerfile build <br>
 ```bash
 docker build -t test .
 docker images 
 REPOSITORY                      TAG                 IMAGE ID            CREATED             SIZE
 test                            latest              3417c1c607bc        5 seconds ago       352MB
 ```
+
+# Docker run <br>
+```bash
+root@ubuntu-VirtualBox:~/Abschlussarbeit/Docker/Docker# docker run -it -d debian-test
+b78f6ce04028a3db8ab5c0a87d02388c3272bbc2e1e6d9725196703131a7ea16
+root@ubuntu-VirtualBox:~/Abschlussarbeit/Docker/Docker# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+b78f6ce04028        debian-test         "bash"              7 seconds ago       Up 4 seconds                            bold_poincare
+```
+
+# Docker commit <br>
+Docker regetrieren und login auf bash Konsole. <br> 
+```bash
+docker commit b78f6ce04028 vahelhassan/debian-test
+```
+
+# Docker image push <br>
+```bash
+docker push vahelhassan/debian-test:latest
+```
+
+Ergebnis: https://hub.docker.com/r/vahelhassan/debian-test <br>
