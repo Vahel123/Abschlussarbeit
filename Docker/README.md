@@ -101,24 +101,18 @@ MAINTAINER Vahel Hassan <Vahel.Hassan@outlook.de>
 
 RUN apt-get update && apt-get install -y
 
-RUN apt-get install sudo -y
-
-RUN sudo apt-get install systemd -y
-
 # Tools die wir später für unsere Leistungsbewertung benötigen
-RUN sudo apt-get install stress
+RUN apt-get install stress
 
-RUN sudo apt-get install sysstat -y
+RUN apt-get install sysstat -y
 
-RUN sudo apt-get install nicstat -y
+RUN apt-get install nicstat -y
 
 # Webserver installieren
 
 RUN apt-get update
 
 RUN apt-get install -y apache2
-
-
 
 ENV APACHE_RUN_USER www-data
 
