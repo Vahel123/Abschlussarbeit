@@ -16,7 +16,7 @@ RUN apt-get install nicstat -y
 
 RUN apt-get install iftop -y
 
-RUN apt-get install -y  tshark 
+RUN apt-get install -y tshark 
 
 # Webserver installieren
 
@@ -34,12 +34,12 @@ CMD service apache2 start && tail -F /var/log/mysql/error.log
 
 # Install Benchmark
 
-RUN echo "deb  http://deb.debian.org/debian  stretch main" >> /etc/apt/sources.list
+RUN echo "deb http://deb.debian.org/debian  stretch main" >> /etc/apt/sources.list
 
-RUN echo "deb-src  http://deb.debian.org/debian  stretch main" >> /etc/apt/sources.list
+RUN echo "deb-src http://deb.debian.org/debian  stretch main" >> /etc/apt/sources.list
 
 RUN apt-get update
 
-RUN apt-get install -y  libmariadbclient18
+RUN apt-get install -y libmariadbclient18
 
-RUN apt-get install -y  sysbench
+RUN apt-get install -y sysbench
