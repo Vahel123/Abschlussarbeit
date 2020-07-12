@@ -1,14 +1,8 @@
+#!/bin/sh
 # In diese Datei befinden sich verschiedene Befehle zum aufzeichenen von verschiedenen Komponnenten.
 # CPU Auslastung und Aufzeichnen:
-
-#!/bin/sh
-i=1
-while [ $i -le 5 ]
-do
-   stress -c 4 --timeout 10s
-   cat /proc/stat | head -n1 >> cputest
-  i=`expr $i + 1`
-done
+# Benchmark CPU Test
+sysbench --num-threads=1 --test=cpu --cpu-max-prime=20000 run && timeout 30 bash -c -- 'while true; do cat /proc/stat | head -n1 >> cputest ;done'
 
 #!/bin/sh
 # RAM Auslastung und Aufzeichnen:

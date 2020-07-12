@@ -18,20 +18,6 @@ RUN apt-get install iftop -y
 
 RUN apt-get install -y tshark 
 
-# Webserver installieren
-
-RUN apt-get install apache2 -y
-
-ENV APACHE_RUN_USER www-data
-
-ENV APACHE_RUN_GROUP www-data
-
-ENV APACHE_LOG_DIR /var/log/apache2
-
-RUN echo 'Hello, docker' > /var/www/index.html
-
-CMD service apache2 start && tail -F /var/log/mysql/error.log
-
 # Install Benchmark
 
 RUN echo "deb http://deb.debian.org/debian  stretch main" >> /etc/apt/sources.list
