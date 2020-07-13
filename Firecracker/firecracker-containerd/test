@@ -1,56 +1,0 @@
-docker.io/vahelhassan/debian-test:latest: resolving      |[32m[0m--------------------------------------| 
-elapsed: 0.1 s                            total:   0.0 B (0.0 B/s)                                         
-[1A[2K[1A[2Kdocker.io/vahelhassan/debian-test:latest: resolving      |[32m[0m--------------------------------------| 
-elapsed: 0.2 s                            total:   0.0 B (0.0 B/s)                                         
-[1A[2K[1A[2Kdocker.io/vahelhassan/debian-test:latest: resolving      |[32m[0m--------------------------------------| 
-elapsed: 0.3 s                            total:   0.0 B (0.0 B/s)                                         
-[1A[2K[1A[2Kdocker.io/vahelhassan/debian-test:latest: resolving      |[32m[0m--------------------------------------| 
-elapsed: 0.4 s                            total:   0.0 B (0.0 B/s)                                         
-[1A[2K[1A[2Kdocker.io/vahelhassan/debian-test:latest: resolving      |[32m[0m--------------------------------------| 
-elapsed: 0.5 s                            total:   0.0 B (0.0 B/s)                                         
-[1A[2K[1A[2Kdocker.io/vahelhassan/debian-test:latest: resolving      |[32m[0m--------------------------------------| 
-elapsed: 0.6 s                            total:   0.0 B (0.0 B/s)                                         
-[1A[2K[1A[2Kdocker.io/vahelhassan/debian-test:latest: resolving      |[32m[0m--------------------------------------| 
-elapsed: 0.7 s                            total:   0.0 B (0.0 B/s)                                         
-[1A[2K[1A[2Kdocker.io/vahelhassan/debian-test:latest: resolving      |[32m[0m--------------------------------------| 
-elapsed: 0.8 s                            total:   0.0 B (0.0 B/s)                                         
-[1A[2K[1A[2Kdocker.io/vahelhassan/debian-test:latest: resolving      |[32m[0m--------------------------------------| 
-elapsed: 0.9 s                            total:   0.0 B (0.0 B/s)                                         
-[1A[2K[1A[2Kdocker.io/vahelhassan/debian-test:latest: resolving      |[32m[0m--------------------------------------| 
-elapsed: 1.0 s                            total:   0.0 B (0.0 B/s)                                         
-[1A[2K[1A[2Kdocker.io/vahelhassan/debian-test:latest: resolving      |[32m[0m--------------------------------------| 
-elapsed: 1.1 s                            total:   0.0 B (0.0 B/s)                                         
-[1A[2K[1A[2Kdocker.io/vahelhassan/debian-test:latest:                                         resolved       |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-manifest-sha256:d75e011da00ec6386e77c7eddfcfb8bc66329fc01d986b4b424e2d28f3740774: exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:06ec1d2bd01e7ac64a5a6a141c5012219d81798f7bd0501ed2df1dd61476e910:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-config-sha256:a20d27477637fcf8afdd90bd14269156d25bcb04958a3af9fddfd4138459d151:   exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:e9afc4f90ab09248d75c8081b6dfba749a7f7efdac704ced7e0ceb506e02fa4a:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:952d64361c4938846046dc27fc95e574fb075e204677288120e73ee069c81b05:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:2cfc4c538c3cd702fb1ca526ebd98d5be112ebc138120bd30bac8dfb029cdc14:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:09b6a421fdd1c97639cc08e194498173890244f68cf26b9187a5eaefe128087b:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:115fc7bcdc6e7e216895fee3f8392fe198bf27b6374c5522eed6a31f7f2172bf:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:8ac6eff43ee90e405b9ca8622ff0e3cc8047552842299c43708f495b9b0514ad:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:4bc7a2629617f25436149eb098559d223461930201c9ea0e8cc3463eb83353c7:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:356058f545c1498074d6c13e7c24becb8243233ab94e66bf1891062efcb14171:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:bc63bc6632b76ab932454bb81f6cc3a49515866941dbc7085e21bb0a213d2d8d:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:97753e8f01db2f851bd59c0b29d914270f167a3f89f50e22fb0510628468b6d4:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:3f719158ce14fe6ef757a00b79392d339c9895dac1de0d20cf53b5df7623c83e:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-elapsed: 1.2 s                                                                    total:   0.0 B (0.0 B/s)                                         
-[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2Kdocker.io/vahelhassan/debian-test:latest:                                         resolved       |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-manifest-sha256:d75e011da00ec6386e77c7eddfcfb8bc66329fc01d986b4b424e2d28f3740774: exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:06ec1d2bd01e7ac64a5a6a141c5012219d81798f7bd0501ed2df1dd61476e910:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-config-sha256:a20d27477637fcf8afdd90bd14269156d25bcb04958a3af9fddfd4138459d151:   exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:e9afc4f90ab09248d75c8081b6dfba749a7f7efdac704ced7e0ceb506e02fa4a:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:952d64361c4938846046dc27fc95e574fb075e204677288120e73ee069c81b05:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:2cfc4c538c3cd702fb1ca526ebd98d5be112ebc138120bd30bac8dfb029cdc14:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:09b6a421fdd1c97639cc08e194498173890244f68cf26b9187a5eaefe128087b:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:115fc7bcdc6e7e216895fee3f8392fe198bf27b6374c5522eed6a31f7f2172bf:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:8ac6eff43ee90e405b9ca8622ff0e3cc8047552842299c43708f495b9b0514ad:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:4bc7a2629617f25436149eb098559d223461930201c9ea0e8cc3463eb83353c7:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:356058f545c1498074d6c13e7c24becb8243233ab94e66bf1891062efcb14171:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:bc63bc6632b76ab932454bb81f6cc3a49515866941dbc7085e21bb0a213d2d8d:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:97753e8f01db2f851bd59c0b29d914270f167a3f89f50e22fb0510628468b6d4:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-layer-sha256:3f719158ce14fe6ef757a00b79392d339c9895dac1de0d20cf53b5df7623c83e:    exists         |[32m++++++++++++++++++++++++++++++++++++++[0m| 
-elapsed: 1.3 s                                                                    total:   0.0 B (0.0 B/s)                                         
-unpacking linux/amd64 sha256:d75e011da00ec6386e77c7eddfcfb8bc66329fc01d986b4b424e2d28f3740774...
-done
