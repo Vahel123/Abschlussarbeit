@@ -10,4 +10,5 @@ sudo ~/go/src/github.com/firecracker-containerd/firecracker-control/cmd/containe
      --snapshotter devmapper \
      --runtime aws.firecracker \
      --rm --tty --net-host \
-     docker.io/vahelhassan/debian-test:latest test
+     docker.io/vahelhassan/debian-test:latest \
+     test3

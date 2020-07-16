@@ -1,0 +1,85 @@
+wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1skHNR5IT3ZXgiRByGw6aPVLLjAyjzPu0' -O test.svg # Bild
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="http://192.168.1.109/css/style1.css">
+</head>
+<body>
+</div>
+<div align="center">
+<div id="navi">
+</div>
+</div>
+<div align="center">
+<div id="content">
+<div id="inhalt">
+<div id="in">
+<!-- ab hier beginnt der Inhalt -->
+<div id="Homeimage">
+<div align="center">
+  <center>
+  <table cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td align="center"><img alt="Bild" src="images/test1.svg" width="500" height="350"></td>
+    </tr>
+  </table>
+  </center>
+</div>
+</div>
+<div class="platzhalter"></div>
+<img class="pic_re" alt="" src="images/test2.svg" width="75" height="75">
+<h2>Test</h2>
+<img class="pic_re" alt="" src="images/test3.svg" width="175" height="175">
+<p><span style="letter-spacing: 3pt; font-weight: bold; color: #fff; text-transform: uppercase">Willkommen</span>
+<p>Wir bieten Iahnen dawadwalles vom Haarschnitt, 
+&uuml;ber Farbe sdbisad hin zum Styling f&uuml;r besondere Anl&auml;sse. 
+Unser professiondaadsadwell geschultes,adwawd aawdsawympathischeawdawds Team ber&auml;t
+Sie gerne zu dawIhrem individuellen Typ f&uuml;r die optimale Fawaddrisuwdar.</p>
+<p>Wir fawdawreuen uns auf Ihren Besuch!</p>
+<div class="platzhalter"></div>
+<img class="pic_re" alt="" src="images/test4.svg" width="75" height="75">
+<h2>TestTest</h2>
+<ul>
+  <li>awdpoa,wpd,awpdw</li>
+  <li>awodapüwd,ü,awpdwad</li>
+  <li>akwodpüawdüpawpdüawd</li>
+  <li>aowdpo,awp,dapw,dpa,wdw</li>
+  <li>aokwdoawpdkawopkdpawkpod</li>
+</ul>
+<div class="platzhalter"></div>
+<img class="pic_re" alt="" src="images/test5.svg" width="75" height="75">
+<img class="pic_re" alt="" src="images/test6.svg" width="75" height="75">
+<img class="pic_re" alt="" src="images/test7.svg" width="75" height="75">
+<img class="pic_re" alt="" src="images/test8.svg" width="75" height="75">
+<h2>Test</h2>
+<p span style="letter-spacing: 1pt; font-weight: bold; color: #fff; text-transform: uppercase">
+&Ouml;ffnungszeiten <br/>
+awdawdawdawdawdawdawd<br/>
+awdawdawkdpawdoawd<br/>
+awodkoawdoawkdawkd<br/>
+<div class="platzhalter"></div>
+Adresse <br/> 
+awodkoawdpawpdawd<br/>
+aowdkokawpdkpawkdp<br/>
+omawpdoapwmdpawmdpmawpod<br/>
+</p>
+</div>
+<!-- hier endet der Inhalt -->
+</div>
+</div>
+</div>
+</div>
+<!-- Beginn der FuÃƒÅ¸zeile -->
+<div align="center">
+<div id="fuss">
+<div id="fuss_inhalt">
+<div id="fuss_in">Romeawdaü+wdawdawd ~
+</div>
+</div>
+</div>
+</div>
+<!-- Ende der FuÃƒÅ¸zeile -->
+</body>
+</html>
+
