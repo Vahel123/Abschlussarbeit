@@ -1,0 +1,2 @@
+#!/bin/bash
+ctr tasks exec -t --exec-id 751 test4 ping 8.8.8.8 # außerhalb des Containers Befehle ausführen
