@@ -103,42 +103,41 @@ RUN apt-get update && apt-get install -y
 
 # Tools die wir später für unsere Leistungsbewertung benötigen
 
-RUN apt-get install stress -y
-
 RUN apt-get install sysstat -y
 
 RUN apt-get install nicstat -y
 
 RUN apt-get install iftop -y
 
-RUN apt-get install -y  tshark
+RUN apt-get -y install nano
 
-# Webserver installieren
-
-RUN apt-get install apache2 -y
-
-ENV APACHE_RUN_USER www-data
-
-ENV APACHE_RUN_GROUP www-data
-
-ENV APACHE_LOG_DIR /var/log/apache2
-
-RUN echo 'Hello, docker' > /var/www/index.html
-
-CMD service apache2 start && tail -F /var/log/mysql/error.log
+RUN apt-get -y install wget
 
 # Install Benchmark
 
-RUN echo "deb  http://deb.debian.org/debian  stretch main" >> /etc/apt/sources.list
+RUN echo "deb http://deb.debian.org/debian  stretch main" >> /etc/apt/sources.list
 
-RUN echo "deb-src  http://deb.debian.org/debian  stretch main" >> /etc/apt/sources.list
+RUN echo "deb-src http://deb.debian.org/debian  stretch main" >> /etc/apt/sources.list
 
 RUN apt-get update
 
-RUN apt-get install -y  libmariadbclient18
+RUN apt-get install -y libmariadbclient18
 
-RUN apt-get install -y  sysbench
+RUN apt-get install -y sysbench
 
+# Install Apache2
+
+RUN apt-get install apache2 -y
+
+RUN mkdir /run/lock
+
+RUN mkdir -p /var/www/
+
+RUN chown -R $USER:$USER /var/www/
+
+RUN chmod -R 755 /var/www/
+
+RUN service apache2 restart
 ```
 
 # Dockerfile build <br>
